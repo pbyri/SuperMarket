@@ -1,4 +1,5 @@
 
+add_definitions(-DTEST_SUPER_MARKET)
 
 include_directories(../inc)
 if(NOT CMAKE_VERSION VERSION_LESS 3.1)

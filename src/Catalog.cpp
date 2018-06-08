@@ -1,6 +1,9 @@
 #include "Catalog.h"
 #include <iostream>
 #include "Product.h"
+#ifdef TEST_SUPER_MARKET
+#include "catch.hpp"
+#endif
 
 using namespace SuperStore;
 
@@ -21,19 +24,22 @@ bool Catalog::removeProductFromInventory(uint16_t product_id)
 
 void Catalog::displayInventory() const
 {
-  std::cout<<"displaying inventory\n";
+  std::cout<<"================================================================\n";
+  std::cout<<"ProductID     Description                         Price\n";
+  std::cout<<"================================================================\n";
 }
 
 Catalog::~Catalog()
 {
 }
 
-#if 0
-#include <memory>
-int main()
+
+
+#ifdef TEST_SUPER_MARKET
+SCENARIO("catalog object instantiation is successfu")
 {
-  auto catalog = std::make_unique<Catalog>("pavan");
-  std::cout<<"catalog name:" << catalog->getName() << "\n";
-  return 0;
+  auto catalog = std::make_unique<Catalog>("Joes");
+  REQUIRE(catalog);
+  REQUIRE(catalog->getName().compare("Joes") == 0);
 }
 #endif

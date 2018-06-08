@@ -38,13 +38,14 @@ namespace SuperStore
       /** Destructor
        */
       /** DisplayInventory method
-       * This method displays the inventory of the supermarket in a human readable
-       * format
+       * This method displays the inventory of the supermarket in a human 
+       * readable format
        */
       void displayInventory()  const;
       ~Catalog();
     private:
-      Inventory m_inventory; /*!< Inventory of all products held at this SuperMarket */
+      Inventory m_inventory; /*!< Inventory of all products held at this 
+                              SuperMarket */
       std::string m_name; /*!< Name of the SuperMarket */
   };
 /***********************************************************************************************/
