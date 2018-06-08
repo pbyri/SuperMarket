@@ -1,9 +1,6 @@
 #include "Catalog.h"
 #include <iostream>
 #include "Product.h"
-#ifdef TEST_SUPER_MARKET
-#include "catch.hpp"
-#endif
 
 using namespace SuperStore;
 
@@ -36,6 +33,7 @@ Catalog::~Catalog()
 
 
 #ifdef TEST_SUPER_MARKET
+#include "catch.hpp"
 SCENARIO("catalog object instantiation is successfu")
 {
   auto catalog = std::make_unique<Catalog>("Joes");
