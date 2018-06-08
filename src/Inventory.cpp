@@ -1,67 +1,67 @@
-#include "Catalog.h"
+#include "Inventory.h"
 #include <iostream>
 #include "Product.h"
 #include "assert.h"
 
 using namespace SuperStore;
 
-Catalog::Catalog(const std::string &name) : m_name(name)
+Inventory::Inventory(const std::string &name) : m_name(name)
 {
 }
 
 
-bool Catalog::addProduct(std::shared_ptr<Product> product)
+bool Inventory::addProduct(std::shared_ptr<Product> product)
 {
   //assert(hasProductById(product->getID());
   if(hasProductById(product->getID()))
   {
     return false;
   }
-  m_inventory[product->getID()] = product;
+  m_catalog[product->getID()] = product;
   return true;
 }
 
-void Catalog::removeProduct(uint16_t product_id)
+void Inventory::removeProduct(uint16_t product_id)
 {
   if(hasProductById(product_id))
   {
-    m_inventory.erase(product_id);
+    m_catalog.erase(product_id);
   }
 }
 
-void Catalog::displayInventory() const
+void Inventory::displayCatalog() const
 {
   std::cout<<"================================================================\n";
   std::cout<<"ProductID     Description                         Price\n";
   std::cout<<"================================================================\n";
 }
 
-bool Catalog::hasProductById(uint16_t id) const
+bool Inventory::hasProductById(uint16_t id) const
 {
-  if(m_inventory.find(id) != m_inventory.end())
+  if(m_catalog.find(id) != m_catalog.end())
   {
     return true;
   }
   return false;
 }
 
-const Product* Catalog::getProductById(uint16_t id) 
+const Product* Inventory::getProductById(uint16_t id) 
 {
  assert(this->hasProductById(id));
 
  if(this->hasProductById(id))
  {
-   return m_inventory[id].get();
+   return m_catalog[id].get();
  }
  return nullptr;
 }
 
-uint16_t Catalog::getProductCount() const
+uint16_t Inventory::getProductCount() const
 {
-  return m_inventory.size();
+  return m_catalog.size();
 }
 
-Catalog::~Catalog()
+Inventory::~Inventory()
 {
 }
 
@@ -71,7 +71,7 @@ Catalog::~Catalog()
 #include "catch.hpp"
 SCENARIO("catalog object instantiation is successfu")
 {
-  auto catalog = std::make_unique<Catalog>("Joes");
+  auto catalog = std::make_unique<Inventory>("Joes");
   REQUIRE(catalog);
   REQUIRE(catalog->getName().compare("Joes") == 0);
   REQUIRE(catalog->getProductCount() == 0);

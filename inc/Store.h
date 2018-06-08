@@ -6,7 +6,7 @@
 namespace SuperStore
 {
   /*!< pre declarations */
-  class Catalog;
+  class Inventory;
   class Product;
   /** Store class
   * This class represents a super market store
@@ -59,7 +59,7 @@ namespace SuperStore
   /** This is the catalog that lists the whole inventory of products available
   *   in this market
   */
-  std::unique_ptr<Catalog> m_pCatalog;
+  std::unique_ptr<Inventory> m_pInventory;
   std::string m_name; /*!< Name of the store */
   };
 }

@@ -1,6 +1,6 @@
 #include "Store.h"
 #include "Product.h"
-#include "Catalog.h"
+#include "Inventory.h"
 #include <iostream>
 
 using namespace SuperStore;
@@ -8,7 +8,7 @@ using namespace SuperStore;
 Store::Store(const std::string &name)
     :m_name(name)
 {
-  m_pCatalog = std::make_unique<Catalog>("local");
+  m_pInventory = std::make_unique<Inventory>("local");
 }
 
 Store::~Store()
@@ -22,27 +22,27 @@ std::string Store::getName() const
 
 uint16_t Store::getInventorySize() const
 {
-  return m_pCatalog->getProductCount();
+  return m_pInventory->getProductCount();
 }
 
 bool Store::addProductToInventory(std::shared_ptr<Product> product)
 {
-  if(m_pCatalog->hasProductById(product->getID()))
+  if(m_pInventory->hasProductById(product->getID()))
   {
     std::cout<<"ERROR!! Please choose a unique ID for every product\n";
     return false;
   }
-  return m_pCatalog->addProduct(product);
+  return m_pInventory->addProduct(product);
 }
 
 bool Store::removeProductFromInventory(uint16_t id)
 {
-  if(false == m_pCatalog->hasProductById(id))
+  if(false == m_pInventory->hasProductById(id))
   {
     std::cout<<"No product found with id : "  << id << "\n";
     return false;
   }
-  m_pCatalog->removeProduct(id);
+  m_pInventory->removeProduct(id);
   return true;
 }
 

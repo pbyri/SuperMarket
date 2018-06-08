@@ -1,5 +1,5 @@
 #include <iostream>
-#include <Catalog.h>
+#include <Inventory.h>
 #include <memory>
 
 #ifdef TEST_SUPER_MARKET
@@ -11,9 +11,9 @@ using namespace SuperStore;
 #ifndef TEST_SUPER_MARKET
 int main()
 {
-  auto catalog = std::make_unique<Catalog>("Joes");
+  auto catalog = std::make_unique<Inventory>("Joes");
   std::cout<<"Welcome to " << catalog->getName() << " super market\n";
-  catalog->displayInventory();
+  catalog->displayCatalog();
   return 0;  
 }
 

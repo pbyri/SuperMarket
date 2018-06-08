@@ -9,19 +9,19 @@ namespace SuperStore
 {
   /* pre declarations */
   class Product;
-  /** Catalog class
+  /** Inventory class
    *  This class contains the whole inventory of products being sold at 
    *  the supermarket.
    */
-  class Catalog
+  class Inventory
   {
     public:
-      /*!< typedef for inventory */
-      typedef std::unordered_map<uint16_t, std::shared_ptr<Product>> Inventory;
+      /*!< typedef for Catalog */
+      typedef std::unordered_map<uint16_t, std::shared_ptr<Product>> Catalog;
       /** Constructor
        * @param name: Name of the supermarket
        */
-      Catalog(const std::string &name);
+      Inventory(const std::string &name);
       /** getName method
        */
       inline std::string getName() const;
@@ -35,11 +35,11 @@ namespace SuperStore
        * product in the inventory and removes it
        */
       void removeProduct(uint16_t product_id);
-      /** DisplayInventory method
+      /** DisplayCatalog method
        * This method displays the inventory of the supermarket in a human 
        * readable format
        */
-      void displayInventory()  const;
+      void displayCatalog()  const;
       /** hasProductById method
       *   This method takes a 16 bit id as a parameter and returns true if 
       *   there exists a product with that id in the inventory
@@ -56,9 +56,9 @@ namespace SuperStore
       uint16_t getProductCount() const;
       /** Destructor
        */
-      ~Catalog();
+      ~Inventory();
     private:
-      Inventory m_inventory; /*!< Inventory of all products held at this 
+      Catalog m_catalog; /*!< Catalog of all products held at this 
                               SuperMarket */
       std::string m_name; /*!< Name of the SuperMarket */
   };
@@ -67,7 +67,7 @@ namespace SuperStore
 *
 */
 
-  std::string Catalog::getName() const
+  std::string Inventory::getName() const
   {
     return m_name;
   }
