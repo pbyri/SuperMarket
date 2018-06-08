@@ -13,16 +13,16 @@ Product::~Product()
 {
 }
 
-#if 0
+
+#ifdef TEST_SUPER_MARKET
+#include "catch.hpp"
 #include <memory>
-#include <iostream>
-int main()
+SCENARIO("validate creation of Product object")
 {
-  auto product = std::make_unique<Product>(10,"soap",2.35);
-  std::cout<<"Product ID:" << product->getID() << "\n";
-  std::cout<<"Description:"<<product->getDescription()<<"\n";
-  std::cout<<"Price:"<<product->getPrice()<<"\n";
-return 0;
+  auto product = std::make_shared<Product>(10,"soap",2.35);
+  REQUIRE(product->getID() == 10);
+  REQUIRE(product->getDescription() == "soap");
+  REQUIRE(product->getPrice() == 2.35);
+
 }
 #endif
-

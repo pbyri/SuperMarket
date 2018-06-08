@@ -17,7 +17,7 @@ namespace SuperStore
   {
     public:
       /*!< typedef for inventory */
-      typedef std::unordered_map<uint16_t, std::unique_ptr<Product>> Inventory;
+      typedef std::unordered_map<uint16_t, std::shared_ptr<Product>> Inventory;
       /** Constructor
        * @param name: Name of the supermarket
        */
@@ -25,23 +25,37 @@ namespace SuperStore
       /** getName method
        */
       inline std::string getName() const;
-      /** AddProdiuctToInventory method
+      /** addProduct  method
        * This method takes a product object and adds it to the inventory of 
        * the supermarket
        */
-      bool addProductToInventory(std::unique_ptr<Product> product);
-      /** RemoveProductFromInventory method
+      bool addProduct (std::shared_ptr<Product> product);
+      /** removeProduct method
        * This method takes a unique 16 bit ID for a product, looks for that
-       * product in the inventory and if found, removes it
+       * product in the inventory and removes it
        */
-      bool removeProductFromInventory(uint16_t product_id);
-      /** Destructor
-       */
+      void removeProduct(uint16_t product_id);
       /** DisplayInventory method
        * This method displays the inventory of the supermarket in a human 
        * readable format
        */
       void displayInventory()  const;
+      /** hasProductById method
+      *   This method takes a 16 bit id as a parameter and returns true if 
+      *   there exists a product with that id in the inventory
+      */
+      bool hasProductById(uint16_t id) const;
+      /** getProductById method
+      *   This method takes a 16 bit id as input and returns a pointer to
+      *   the Product represented by this id
+      */
+      const Product* getProductById(uint16_t id);
+      /** getProductCount() method
+      * Returns the number of distinct products available in the inventory
+      */
+      uint16_t getProductCount() const;
+      /** Destructor
+       */
       ~Catalog();
     private:
       Inventory m_inventory; /*!< Inventory of all products held at this 
