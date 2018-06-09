@@ -12,7 +12,6 @@ Inventory::Inventory(const std::string &name) : m_name(name)
 
 bool Inventory::addProduct(std::shared_ptr<Product> product)
 {
-  //assert(hasProductById(product->getID());
   if(hasProductById(product->getID()))
   {
     return false;
@@ -31,6 +30,11 @@ void Inventory::removeProduct(uint16_t product_id)
 
 void Inventory::displayCatalog() const
 {
+  if(!getProductCount())
+  {
+    std::cout<<"Sorry, the inventory is empty. Please contact store manager\n";
+    return;
+  }
   std::cout<<"================================================================\n";
   std::cout<<"ProductID     Description                         Price\n";
   std::cout<<"================================================================\n";
@@ -69,15 +73,30 @@ Inventory::~Inventory()
 
 #ifdef TEST_SUPER_MARKET
 #include "catch.hpp"
-SCENARIO("catalog object instantiation is successfu")
+SCENARIO("validate Inventory Object", "[Inventory]")
 {
-  auto catalog = std::make_unique<Inventory>("Joes");
-  REQUIRE(catalog);
-  REQUIRE(catalog->getName().compare("Joes") == 0);
-  REQUIRE(catalog->getProductCount() == 0);
-  REQUIRE(catalog->addProduct(std::make_shared<Product>(10,"soap",1.2)));
-  REQUIRE(catalog->getProductCount() == 1);
-  catalog->removeProduct(10);
-  REQUIRE(catalog->getProductCount() == 0);
+  GIVEN("An Inventory Object")
+  {
+    Inventory catalog("local");
+    REQUIRE(catalog.getName() == "local");
+    REQUIRE(catalog.getProductCount() == 0);
+    WHEN("A new prduct is added to the Inventory")
+    {
+      catalog.addProduct(std::make_shared<Product>(10,"soap",1.2));
+      THEN("product count of inventory increases by 1")
+      {
+        REQUIRE(catalog.getProductCount() == 1);
+      }
+    }
+    WHEN("An existing product is removed from Inventory")
+    {
+      catalog.addProduct(std::make_shared<Product>(20,"belt",14));
+      catalog.removeProduct(20);
+      THEN("product count decreases by 1")
+      {
+        REQUIRE(catalog.getProductCount() == 0);
+      }
+    }
+  }
 }
 #endif

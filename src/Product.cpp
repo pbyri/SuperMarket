@@ -17,12 +17,12 @@ Product::~Product()
 #ifdef TEST_SUPER_MARKET
 #include "catch.hpp"
 #include <memory>
-SCENARIO("validate creation of Product object")
+SCENARIO("validate Product object", "[product]")
 {
-  auto product = std::make_shared<Product>(10,"soap",2.35);
-  REQUIRE(product->getID() == 10);
-  REQUIRE(product->getDescription() == "soap");
-  REQUIRE(product->getPrice() == 2.35);
+  Product p(10,"soap",2.35);
+  REQUIRE(p.getID() == 10);
+  REQUIRE(p.getDescription() == "soap");
+  REQUIRE(p.getPrice() == 2.35);
 
 }
 #endif

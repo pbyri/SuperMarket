@@ -41,17 +41,17 @@ namespace SuperStore
   *   This method displays the main menu where the user can choose a sub-menu that
   *   they are interested in
   */
-  void displayMainMenu();
+  void displayMainMenu() const;
   /** displayStoreAdminMenu method
   *   This method displays a menu for the store manager and facilitates making
   *   changes to the inventory
   */
-  void displayStoreAdminMenu();
+  void displayStoreAdminMenu() const;
   /** displayCustomerMenu method
   *   This method displays the menu appropriate for a customer shopping at the
   *   store
   */
-  void displayCustomerMenu();
+  void displayCustomerMenu() const;
   /**Destructor
   */
   ~Store();

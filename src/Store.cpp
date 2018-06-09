@@ -46,19 +46,44 @@ bool Store::removeProductFromInventory(uint16_t id)
   return true;
 }
 
+void Store::displayMainMenu() const
+{
+  std::cout<<"********************************************************************************\n";
+  std::cout<<"****************** WELCOME TO " << m_name << " SUPERMARKET ********************************\n";
+  std::cout<<"********************************************************************************\n";
+  std::cout<<"Please choose an option from below:\n";
+  std::cout<<"1)Buy Products\n2)Manage Store\n";
+}
 #ifdef TEST_SUPER_MARKET
 #include "catch.hpp"
-SCENARIO("Store object can be instantiated successfully")
+SCENARIO("validate store object","[Store]")
 {
-auto store = std::make_unique<Store>("Joes");
-REQUIRE(store);
-REQUIRE(store->getName() == "Joes");
-REQUIRE(store->getInventorySize() == 0);
-store->addProductToInventory(std::make_shared<Product>(20,
-                                                       "Paste",
-						       10.76));
-REQUIRE(store->getInventorySize() == 1);
-store->removeProductFromInventory(20);
-REQUIRE(store->getInventorySize() == 0);
+  GIVEN("A store object")
+  {
+    Store store("Joes");
+    REQUIRE(store.getName() == "Joes");
+    REQUIRE(store.getInventorySize() == 0);
+    WHEN("A new product is added to the store")
+    {
+      store.addProductToInventory(std::make_shared<Product>(20,
+							     "Paste",
+							     10.76));
+      THEN("The Inventory size increases by 1")
+      {
+        REQUIRE(store.getInventorySize() == 1);
+      }
+    }
+    WHEN("An existing product is removed from inventory")
+    {
+      store.addProductToInventory(std::make_shared<Product>(20,
+							     "Paste",
+							     10.76));
+      store.removeProductFromInventory(20);
+      THEN("The inventory size decreases by 1 ")
+      {
+        REQUIRE(store.getInventorySize() == 0);
+      }
+    }
+ }
 }
 #endif

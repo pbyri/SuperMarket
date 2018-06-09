@@ -1,5 +1,5 @@
 #include <iostream>
-#include <Inventory.h>
+#include <Store.h>
 #include <memory>
 
 #ifdef TEST_SUPER_MARKET
@@ -11,9 +11,8 @@ using namespace SuperStore;
 #ifndef TEST_SUPER_MARKET
 int main()
 {
-  auto catalog = std::make_unique<Inventory>("Joes");
-  std::cout<<"Welcome to " << catalog->getName() << " super market\n";
-  catalog->displayCatalog();
+  auto store = std::make_unique<Store>("Joe\'s");
+  store->displayMainMenu();
   return 0;  
 }
 
