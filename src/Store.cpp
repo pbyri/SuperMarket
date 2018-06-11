@@ -52,8 +52,82 @@ void Store::displayMainMenu() const
   std::cout<<"****************** WELCOME TO " << m_name << " SUPERMARKET ********************************\n";
   std::cout<<"********************************************************************************\n";
   std::cout<<"Please choose an option from below:\n";
-  std::cout<<"1)Buy Products\n2)Manage Store\n";
+  std::cout<<"1)Buy Products\n2)Manage Store\n0)Exit\n";
+  std::cout<<"Enter your choice:";
 }
+
+
+void Store::displayStoreAdminMenu() const
+{
+  std::cout<<"****************** STORE ADMIN MENU *******************************\n";
+  std::cout<<"What would you like to do?]\n";
+  std::cout<<"1)Add new product\n2)Remove existing product\n3)View Inventory\n" <<
+  "0)Return to Main Menu\n";
+  std::cout<<"Please enter your choice:";
+}
+
+void Store::displayCustomerMenu() const
+{
+  m_pInventory->displayCatalog();
+  std::cout<<"Please enter the id of the product you like to purchase" <<
+  "(Enter 0 to return back to MainMenu):";
+}
+
+void Store::serviceCustomer()
+{
+  uint16_t choice = 1;
+  while(choice)
+  {
+    this->displayCustomerMenu();
+    std::cin >> choice;
+    if(choice)
+    {
+      if(m_pInventory->hasProductById(choice))
+      {
+        /* create order and add to shopping cart */
+      }
+      else
+      {
+        std::cout<<"Please enter a valid Product Id\n";
+      }
+    }
+  }
+}
+
+void Store::serviceStoreAdmin()
+{
+  uint16_t choice = 1;
+  while(choice)
+  {
+    this->displayStoreAdminMenu();
+    std::cin >> choice;
+    if(choice)
+    {
+    }
+  }
+}
+void Store::launch()
+{
+  uint16_t choice = 1;
+  while(choice)
+  {
+    this->displayMainMenu();
+    std::cin>>choice;
+    std::cout<<"You entered:"<<choice<<"\n";
+    switch(choice)
+    {
+    case 1:
+      this->serviceCustomer();
+      break;
+    case 2:
+      this->serviceStoreAdmin();
+      break;
+    default:
+      break;
+    }
+  }
+}
+
 #ifdef TEST_SUPER_MARKET
 #include "catch.hpp"
 SCENARIO("validate store object","[Store]")

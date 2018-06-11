@@ -8,4 +8,4 @@ else()
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++14")
 endif()
 
-add_executable(SuperMarket Product.cpp Inventory.cpp Store.cpp SuperMarket.cpp) 
+add_executable(SuperMarket Product.cpp Inventory.cpp Store.cpp ShoppingCart.cpp SuperMarket.cpp) 

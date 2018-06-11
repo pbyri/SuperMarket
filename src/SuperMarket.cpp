@@ -12,7 +12,7 @@ using namespace SuperStore;
 int main()
 {
   auto store = std::make_unique<Store>("Joe\'s");
-  store->displayMainMenu();
+  store->launch();
   return 0;  
 }
 

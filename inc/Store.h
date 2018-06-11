@@ -52,6 +52,22 @@ namespace SuperStore
   *   store
   */
   void displayCustomerMenu() const;
+  /** launch method
+  *   This method will launch the store application and takes to home screen
+  */
+  void launch();
+  /** displayInventory method
+  *   This method displays the entire inventory contained in the store
+  */
+  void displayInventory() const;
+  /** serviceCustomer method
+  *   This method handles customer interaction functions
+  */
+  void serviceCustomer();
+  /** serviceStoreAdmin method
+  *   This method handles store admin interaction function
+  */
+  void serviceStoreAdmin();
   /**Destructor
   */
   ~Store();
