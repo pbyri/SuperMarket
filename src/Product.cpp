@@ -1,3 +1,10 @@
+/** @file Product.cpp
+*   @brief This file contains implementation details of the Product class
+*
+*   This file provides implementation to Product class and also contains unit
+*   test cases for Product
+*/
+
 #include "Product.h"
 
 using namespace SuperStore;

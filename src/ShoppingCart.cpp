@@ -1,3 +1,10 @@
+/** @file ShoppingCart.cpp
+*   @brief This file provides implementation for PurchaseOrder and
+*   Shoppingcart classes and also provides unit tests for the above
+*   @author Pavan Kumar Byri
+*   @date 06-12-2018
+*/
+
 #include "Product.h"
 #include "ShoppingCart.h"
 #include <algorithm>
@@ -41,6 +48,9 @@ ShoppingCart::~ShoppingCart()
 
 void ShoppingCart::addToCart(std::unique_ptr<PurchaseOrder> order)
 {
+  auto it = std::find_if(m_orders.begin(),
+                         m_orders.end(),
+                         [&order](auto &order_) { return order->getOrderNumber() == order_->getOrderNumber(); });
   m_orders.push_back(std::move(order));
 }
 

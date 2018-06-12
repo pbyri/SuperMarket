@@ -1,3 +1,11 @@
+/** @file Inventory.cpp
+*   @brief Implementation details of the Inventory
+*   @author Pavan Kumar Byri
+*   @date 06-12-2018
+*
+*   This file contains the implementation details of Inventory class and also
+*   contains unit test cases for Inventory class.
+*/
 #include "Inventory.h"
 #include <iostream>
 #include "Product.h"
@@ -9,9 +17,10 @@ Inventory::Inventory(const std::string &name) : m_name(name)
 {
 }
 
-
 bool Inventory::addProduct(std::shared_ptr<Product> product)
 {
+  // if the inventory already has a product with the given Id, return false
+  // Otherwise, add the product to the catalog and return true
   if(hasProductById(product->getID()))
   {
     return false;
@@ -20,6 +29,8 @@ bool Inventory::addProduct(std::shared_ptr<Product> product)
   return true;
 }
 
+// If the inventory has a product with the give id, remove it from the catalog
+// and return
 void Inventory::removeProduct(uint16_t product_id)
 {
   if(hasProductById(product_id))
@@ -40,6 +51,8 @@ void Inventory::displayCatalog() const
   std::cout<<"================================================================\n";
 }
 
+// check the catalog for a product with given Id. if found, return true.
+// Otherwise return false.
 bool Inventory::hasProductById(uint16_t id) const
 {
   if(m_catalog.find(id) != m_catalog.end())
@@ -49,6 +62,8 @@ bool Inventory::hasProductById(uint16_t id) const
   return false;
 }
 
+// if the inventory has a product with the given Id, return a pointer to the
+// Product object. Otherwise, return nullptr
 const Product* Inventory::getProductById(uint16_t id) 
 {
  assert(this->hasProductById(id));
@@ -60,6 +75,7 @@ const Product* Inventory::getProductById(uint16_t id)
  return nullptr;
 }
 
+// return the size of the catalog as the size of the Inventory
 uint16_t Inventory::getProductCount() const
 {
   return m_catalog.size();
