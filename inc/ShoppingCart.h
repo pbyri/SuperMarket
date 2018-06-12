@@ -52,6 +52,10 @@ namespace SuperStore
     *   This method is used to remove a specific PurchaseOrder from the ShoppingCart
     */
     void removeFromCart(uint16_t order_id);
+    /** getNumberOfPurchaseOrders() method
+    *   This method returns the number of purchase orders in the cart
+    */
+    uint16_t getNumberOfPurchaseOrders() const;
     /** Destructor
     */
     ~ShoppingCart();
