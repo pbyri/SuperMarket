@@ -1,79 +1,125 @@
+/** @file Store.h
+*   @brief This file provides the prototype and public interfaces for the
+*   Store class
+*   @author Pavan Kumar Byri
+*   @date 06-12-2018
+*/
+
 #ifndef SUPERMARKET_STORE_H
 #define SUPERMARKET_STORE_H
 #include <string>
 #include <memory>
 
+/** @brief namespace SuperStore encapsulates all definitions for SuperMarket
+*/
 namespace SuperStore
 {
-  /*!< pre declarations */
+  /*!< Forward declarations */
   class Inventory;
   class Product;
-  /** Store class
+  /** @brief class Store: prototypes the grocery store
+  *
   * This class represents a super market store
   *
   */
   class Store
   {
   public:
-  /** Constructor
+  /** @brief Constructor with std::string parameter
+  *   @param[in] name A string that contains the name of the Store
   */
   Store(const std::string &name);
-  /** getName method
-  *   This method returns the name of the store
+  /** @brief returns the name of the Store
+  *   @return std::string
   */
   std::string getName() const;
-  /** getInventorySize() method
-  *   Returns the size of inventory held by the store
+  /** @brief returns the number of prodiucts in the Store
+  *   @return uint16_t
   */
   uint16_t getInventorySize() const;
-  /** addProductToInventory method
+  /** @brief A helper function to add a new product to the Store Inventory
+  *   @param[in] product A shared_ptr of Product type that needs to be added
+  *   to the store inventory
+  *   @return bool
+  *
   *   This method takes a product object as an input oarameter and
-  *   adds that to the store's inventory
+  *   adds that to the store's inventory. If successful, returns true. Otherwise
+  *   it returns false.
+  *
   */
   bool addProductToInventory(std::shared_ptr<Product> product);
-  /** removeProductFromInventory
+  /** @brief A helper function to remove a product from Store Inventory
+  *   @param[in] Id A unique id that identifies a product to be removed from
+  *   the store inventory
+  *   @return bool
+  *
   *   This method takes a 16 bit identifier as input and tries to
   *   remove that product from the store's inventory. if product 
-  *   cannot be found. it returns false
+  *   cannot be found. it returns false. If successfully removed, it returns
+  *   true
+  *
   */
   bool removeProductFromInventory(uint16_t id);
-  /** displayMainMenu method
+  /** @brief Displays the Main Menu or home page menu
+  *   @return void
+  *
   *   This method displays the main menu where the user can choose a sub-menu that
   *   they are interested in
+  *
   */
   void displayMainMenu() const;
-  /** displayStoreAdminMenu method
+  /** @brief Displays the menu for store administrator
+  *   @return void
+  *
   *   This method displays a menu for the store manager and facilitates making
   *   changes to the inventory
+  *
   */
   void displayStoreAdminMenu() const;
-  /** displayCustomerMenu method
+  /** @brief Displays the Menu for customer
+  *   @return void
+  *
   *   This method displays the menu appropriate for a customer shopping at the
   *   store
+  *
   */
   void displayCustomerMenu() const;
-  /** launch method
-  *   This method will launch the store application and takes to home screen
+  /** @brief This method will handle core interaction functionality of the
+  *   Store
+  *   @return void
+  *
+  *   This method will launch the store application and takes to home screen and
+  *   takes appropriate action based on user choice
+  *
   */
   void launch();
-  /** displayInventory method
+  /** @brief Displays the inventory of the store
+  *   @return void
+  *
   *   This method displays the entire inventory contained in the store
+  *
   */
   void displayInventory() const;
-  /** serviceCustomer method
+  /** @brief provide functionalities useful to customer of the store
+  *   @return void
+  *
   *   This method handles customer interaction functions
+  *
   */
   void serviceCustomer();
-  /** serviceStoreAdmin method
+  /** @brief provide functionalities useful to admin of the store
+  *   @return void
+  *
   *   This method handles store admin interaction function
+  *
   */
   void serviceStoreAdmin();
   /**Destructor
   */
   ~Store();
   private:
-  /** This is the catalog that lists the whole inventory of products available
-  *   in this market
+  /** @brief This is the catalog that lists the whole inventory of products 
+  *   available in this market
   */
   std::unique_ptr<Inventory> m_pInventory;
   std::string m_name; /*!< Name of the store */

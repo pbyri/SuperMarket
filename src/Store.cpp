@@ -1,3 +1,9 @@
+/** @file Store.cpp
+*   @brief This is the Entry point file of the project
+*   @author Pavan Kumar Byri
+*   @date 06-12-2018
+*/
+
 #include "Store.h"
 #include "Product.h"
 #include "Inventory.h"
@@ -27,6 +33,8 @@ uint16_t Store::getInventorySize() const
 
 bool Store::addProductToInventory(std::shared_ptr<Product> product)
 {
+  // if there is already a product in the inventory with the same Id,
+  // return false. product cannot be added to the inventory
   if(m_pInventory->hasProductById(product->getID()))
   {
     std::cout<<"ERROR!! Please choose a unique ID for every product\n";
@@ -37,6 +45,8 @@ bool Store::addProductToInventory(std::shared_ptr<Product> product)
 
 bool Store::removeProductFromInventory(uint16_t id)
 {
+  // if no product is found with this id in the inventory then there is nothing
+  // to delete. return false
   if(false == m_pInventory->hasProductById(id))
   {
     std::cout<<"No product found with id : "  << id << "\n";
@@ -106,9 +116,18 @@ void Store::serviceStoreAdmin()
     }
   }
 }
+/**
+* This is the function that will be called to launch the interactive Menu
+* This would be called the Main Menu
+* The user can choose an option to get more specific services
+* Once done with a request, the user can choose to return to this Main menu
+* by selecting '0'.
+* Selecting '0' on Main Menu will cause the application to exit.
+*/
 void Store::launch()
 {
   uint16_t choice = 1;
+  // Stay in the Main Menu until the user chooses to exit the application
   while(choice)
   {
     this->displayMainMenu();
