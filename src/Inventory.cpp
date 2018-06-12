@@ -73,12 +73,17 @@ Inventory::~Inventory()
 
 #ifdef TEST_SUPER_MARKET
 #include "catch.hpp"
+TEST_CASE("validate Inventory Object","[Inventory]")
+{
+  Inventory i("local");
+  REQUIRE(i.getName() == "local");
+  REQUIRE(i.getProductCount() == 0);
+}
 SCENARIO("validate Inventory Object", "[Inventory]")
 {
   GIVEN("An Inventory Object")
   {
     Inventory catalog("local");
-    REQUIRE(catalog.getName() == "local");
     REQUIRE(catalog.getProductCount() == 0);
     WHEN("A new prduct is added to the Inventory")
     {

@@ -130,12 +130,17 @@ void Store::launch()
 
 #ifdef TEST_SUPER_MARKET
 #include "catch.hpp"
-SCENARIO("validate store object","[Store]")
+TEST_CASE("Validate Store object","[Store]")
+{
+  Store store("Joe");
+  REQUIRE(store.getName() == "Joe");
+  REQUIRE(store.getInventorySize() == 0);
+}
+SCENARIO("Validate addition and removal of Product from Store","[Store]")
 {
   GIVEN("A store object")
   {
     Store store("Joes");
-    REQUIRE(store.getName() == "Joes");
     REQUIRE(store.getInventorySize() == 0);
     WHEN("A new product is added to the store")
     {
