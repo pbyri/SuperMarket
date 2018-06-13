@@ -1,8 +1,10 @@
 /** @file Product.cpp
 *   @brief This file contains implementation details of the Product class
+*   @author Pavan Kumar Byri
+*   @date 06-13-2018
 *
-*   This file provides implementation to Product class and also contains unit
-*   test cases for Product
+*   This file provides implementation to Product class 
+*
 */
 
 #include "Product.h"
@@ -20,16 +22,3 @@ Product::~Product()
 {
 }
 
-
-#ifdef TEST_SUPER_MARKET
-#include "catch.hpp"
-#include <memory>
-SCENARIO("validate Product object", "[product]")
-{
-  Product p(10,"soap",2.35);
-  REQUIRE(p.getID() == 10);
-  REQUIRE(p.getDescription() == "soap");
-  REQUIRE(p.getPrice() == 2.35);
-
-}
-#endif
