@@ -9,6 +9,7 @@
 #define SUPERMARKET_PRODUCT_H
 #include <string>
 #include <cstdint>
+#include <memory>
 
 /** @brief namespace SuperStore encapsulates all definitions for SuperMarket
 */
@@ -22,6 +23,11 @@ namespace SuperStore
   class Product
   {
   public:
+    /** @brief This is an interactive static factory method that helps create 
+    *   a new Product
+    *   @return shared_ptr<Product>
+    */
+    static std::shared_ptr<Product> CreateNewProduct();
     /** @brief Constructor with parameters
     *   @param[in] Id A unique Id representing this Product
     *   @param[in] description A string that provides a brief description of

@@ -56,13 +56,18 @@ bool Store::removeProductFromInventory(uint16_t id)
   return true;
 }
 
+void Store::displayInventory() const
+{
+  m_pInventory->displayCatalog();
+}
+
 void Store::displayMainMenu() const
 {
   std::cout<<"********************************************************************************\n";
   std::cout<<"****************** WELCOME TO " << m_name << " SUPERMARKET ********************************\n";
   std::cout<<"********************************************************************************\n";
-  std::cout<<"Please choose an option from below:\n";
-  std::cout<<"1)Buy Products\n2)Manage Store\n0)Exit\n";
+  std::cout<<"Please choose an option that represents you:\n";
+  std::cout<<"1)Buy Products\n2)Manage Store\nEnter '0' to exit.\n";
   std::cout<<"Enter your choice:";
 }
 
@@ -113,6 +118,17 @@ void Store::serviceStoreAdmin()
     std::cin >> choice;
     if(choice)
     {
+      switch(StoreAdminChoice(choice))
+      {
+        case StoreAdminChoice::RETURN_TO_MAIN_MENU:
+          return;
+        case StoreAdminChoice::ADD_NEW_PRODUCT:
+          this->addProductToInventory(Product::CreateNewProduct());
+          break;
+        case StoreAdminChoice::VIEW_INVENTORY:
+          this->displayInventory();
+          break;
+      }
     }
   }
 }
@@ -133,12 +149,12 @@ void Store::launch()
     this->displayMainMenu();
     std::cin>>choice;
     std::cout<<"You entered:"<<choice<<"\n";
-    switch(choice)
+    switch(MainMenuChoice(choice))
     {
-    case 1:
+    case MainMenuChoice::CUSTOMER:
       this->serviceCustomer();
       break;
-    case 2:
+    case MainMenuChoice::STORE_ADMIN:
       this->serviceStoreAdmin();
       break;
     default:

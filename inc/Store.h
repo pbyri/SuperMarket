@@ -25,6 +25,23 @@ namespace SuperStore
   class Store
   {
   public:
+  /** @brief enum for Main Menu Selection
+  */
+  enum class MainMenuChoice
+  {
+    EXIT_MAIN_MENU = 0,  /*!< choose this option to exit the application */
+    CUSTOMER,            /*!< choose this option if you are a customer */
+    STORE_ADMIN          /*!< choose this option if you are store admin */
+  };
+  /** @brief enum for Store Admin Menu Selection
+  */
+  enum class StoreAdminChoice
+  {
+    RETURN_TO_MAIN_MENU = 0, /*!< option for returning to main menu */
+    ADD_NEW_PRODUCT,         /*!< option for adding new product to inventory */
+    DELETE_PRODUCT,          /*!< option to delete existing product from inventory */
+    VIEW_INVENTORY           /*!< option to view the inventory */
+  };
   /** @brief Constructor with std::string parameter
   *   @param[in] name A string that contains the name of the Store
   */
