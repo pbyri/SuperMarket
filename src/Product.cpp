@@ -35,7 +35,7 @@ uint16_t Product::readProductIdFromConsole()
     // try to product id input from console
     //GetDataFromStream<int> g(value);
     //std::cin >> g;
-    if(std::cin >> GetDataFromStream<int>(value))
+    if(!(std::cin >> GetDataFromStream<int>(value)))
     {
       std::cout << "Please enter a valid uint16 number\n";
     }
@@ -56,8 +56,7 @@ std::shared_ptr<Product> Product::CreateNewProduct()
 {
   std::string name;
   double price = 0;
-  //auto Id = readProductIdFromConsole();
-  uint16_t Id = 0;
+  auto Id = readProductIdFromConsole();
   std::cout<<"Please enter a brief description for the product:";
   std::cin >> name;
   std::cout << "Please enter the price of the product:";

@@ -28,7 +28,7 @@ namespace SuperStore
     *   @return std::istream&
     */
     friend std::istream& operator >>(std::istream &stream, 
-                                    GetDataFromStream<DataType> &obj)
+                                    GetDataFromStream<DataType> &&obj)
     {
       obj.val_ = obj.readDataFromStream(stream);
       return stream;

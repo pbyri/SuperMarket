@@ -69,7 +69,7 @@ namespace SuperStore
     /** @brief A helper function to safely read product Id from console 
     *   @return uint16_t
     */
-    uint16_t readProductIdFromConsole();
+    static uint16_t readProductIdFromConsole();
 
   };
 
