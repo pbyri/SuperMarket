@@ -66,6 +66,11 @@ namespace SuperStore
     double m_price; /*!< A price for which the product is available
 			 for purchase */
 
+    /** @brief A helper function to safely read product Id from console 
+    *   @return uint16_t
+    */
+    uint16_t readProductIdFromConsole();
+
   };
 
 /************************************************************************************************/

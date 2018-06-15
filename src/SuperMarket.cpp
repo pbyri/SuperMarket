@@ -17,7 +17,7 @@ int main()
 {
   auto store = std::make_unique<Store>("Joe\'s");
   store->launch();
-  std::cout<<"Exiting application..";
+  std::cout<<"Exiting application..\n";
   return 0;  
 }
 

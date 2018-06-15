@@ -49,6 +49,14 @@ void Inventory::displayCatalog() const
   std::cout<<"================================================================\n";
   std::cout<<"ProductID     Description                         Price\n";
   std::cout<<"================================================================\n";
+
+  // Iterate through the Catalog Map and print the details of each Product
+  for(auto const &KeyVal : m_catalog)
+  {
+    std::cout<< KeyVal.first <<"      ";
+    std::cout<< KeyVal.second->getDescription() <<"     ";
+    std::cout<< KeyVal.second->getPrice() << "\n";
+  }
 }
 
 // check the catalog for a product with given Id. if found, return true.
