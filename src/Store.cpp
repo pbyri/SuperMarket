@@ -122,14 +122,40 @@ void Store::serviceStoreAdmin()
       switch(StoreAdminChoice(choice))
       {
         case StoreAdminChoice::RETURN_TO_MAIN_MENU:
+        {
           return;
+        }
         case StoreAdminChoice::ADD_NEW_PRODUCT:
-          this->addProductToInventory(Product::CreateNewProduct());
+        {
+          if(this->addProductToInventory(Product::CreateNewProduct()))
+          {
+            std::cout << "successfully added product!!\n";
+          }
+          else
+          {
+            std::cout << "OOPS!! something went wrong. Please try again!\n";
+          }
           break;
+        }
+        case StoreAdminChoice::DELETE_PRODUCT:
+        {
+          auto Id = Product::getProductIdFromConsole();
+          if(this->removeProductFromInventory(Id))
+          {
+            std::cout << "SUCCESSFULLY REMOVED PRODUCT!!\n";
+          }
+          else
+          {
+            std::cout << "ERROR REMOVING PRODUCT. PLEASE TRY AGAIN!!\n";
+          }
+          break;
+        }
         case StoreAdminChoice::VIEW_INVENTORY:
+        {
           this->displayInventory();
           break;
-      }
+        }
+      } // switch(choice)
     }
   }while(choice);
 }

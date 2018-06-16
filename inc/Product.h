@@ -57,6 +57,10 @@ namespace SuperStore
     *
     */
     inline double getPrice() const;
+    /** @brief A helper function to safely read product Id from console 
+    *   @return uint16_t
+    */
+    static uint16_t getProductIdFromConsole();
     /** Destructor
     */
     ~Product();
@@ -65,11 +69,6 @@ namespace SuperStore
     std::string m_description; /*!< A brief title for  product */
     double m_price; /*!< A price for which the product is available
 			 for purchase */
-
-    /** @brief A helper function to safely read product Id from console 
-    *   @return uint16_t
-    */
-    static uint16_t getProductIdFromConsole();
   
     /** @brief A helper function to help read product description from console
     *   @return std::string
