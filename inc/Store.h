@@ -140,6 +140,16 @@ namespace SuperStore
   */
   std::unique_ptr<Inventory> m_pInventory;
   std::string m_name; /*!< Name of the store */
+
+  /** @brief This is a helper method to create a new product and add it to inventory
+  *   @return void
+  */
+  void addNewProduct();
+
+  /** @brief This is a UI interactive method that helps delete a product
+  *   @return void
+  */
+  void deleteProduct();
   };
 }
 #endif
