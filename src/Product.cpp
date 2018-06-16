@@ -25,42 +25,65 @@ Product::~Product()
 {
 }
 
-uint16_t Product::readProductIdFromConsole()
+uint16_t Product::getProductIdFromConsole()
 {
   std::cout<<"Please enter a unique Id for the product:";
   int value = 0;
-  // Stay in this function until we can successfully read data from console
-  while(true)
+  do
   {
-    // try to product id input from console
-    //GetDataFromStream<int> g(value);
-    //std::cin >> g;
-    if(!(std::cin >> GetDataFromStream<int>(value)))
-    {
-      std::cout << "Please enter a valid uint16 number\n";
-    }
+    std::cin >> GetDataFromStream<int>(value);
     // check whether the user entered a valid data
     if(value < 0 || value > UINT16_MAX)
     {
-      std::cout << "Please enter a valid uint16 number\n";
+      std::cout << "Please enter a valid uint16 number : ";
     }
     else
     {
       break;
     }
-  } // while(true)
+  }while(true);
   return value;
 }// readProductIdFromConsole
 
+std::string Product::getProductDescriptionFromConsole()
+{
+  std::cout<<"Please enter a brief description for the product:";
+  std::string desc;
+  do
+  {
+    std::getline(std::cin, desc);
+    if(desc.length())
+    {
+      break;
+    }
+  }while(true);
+  return desc;
+}
+
+double Product::getProductPriceFromConsole()
+{
+  std::cout << "Please enter the price of the product:";
+  double price = 0;
+  do
+  {
+    std::cin >> GetDataFromStream<double>(price);
+    if(price <= 0)
+    {
+      std::cout << "Please enter a value greater than zero for price : ";
+      continue;
+    }
+    else
+    {
+      break;
+    }
+  }while(true);
+  return price;
+}
 std::shared_ptr<Product> Product::CreateNewProduct()
 {
-  std::string name;
-  double price = 0;
-  auto Id = readProductIdFromConsole();
-  std::cout<<"Please enter a brief description for the product:";
-  std::cin >> name;
-  std::cout << "Please enter the price of the product:";
-  std::cin >> price;
+  auto Id = Product::getProductIdFromConsole();
+  auto name = Product::getProductDescriptionFromConsole();
+  auto price = Product::getProductPriceFromConsole();
   return std::make_shared<Product>(Id,
                                    name,
                                    price); 

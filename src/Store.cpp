@@ -8,6 +8,7 @@
 #include "Product.h"
 #include "Inventory.h"
 #include <iostream>
+#include "Helpers.h"
 
 using namespace SuperStore;
 
@@ -90,11 +91,11 @@ void Store::displayCustomerMenu() const
 
 void Store::serviceCustomer()
 {
-  uint16_t choice = 1;
-  while(choice)
+  int choice;
+  do
   {
     this->displayCustomerMenu();
-    std::cin >> choice;
+    std::cin >> GetDataFromStream<int>(choice);
     if(choice)
     {
       if(m_pInventory->hasProductById(choice))
@@ -106,16 +107,16 @@ void Store::serviceCustomer()
         std::cout<<"Please enter a valid Product Id\n";
       }
     }
-  }
+  }while(choice);
 }
 
 void Store::serviceStoreAdmin()
 {
-  uint16_t choice = 1;
-  while(choice)
+  int choice;
+  do
   {
     this->displayStoreAdminMenu();
-    std::cin >> choice;
+    std::cin >> GetDataFromStream<int>(choice);
     if(choice)
     {
       switch(StoreAdminChoice(choice))
@@ -130,7 +131,7 @@ void Store::serviceStoreAdmin()
           break;
       }
     }
-  }
+  }while(choice);
 }
 /**
 * This is the function that will be called to launch the interactive Menu
@@ -142,12 +143,12 @@ void Store::serviceStoreAdmin()
 */
 void Store::launch()
 {
-  uint16_t choice = 1;
+  int choice;
   // Stay in the Main Menu until the user chooses to exit the application
-  while(choice)
+  do
   {
     this->displayMainMenu();
-    std::cin>>choice;
+    std::cin >> GetDataFromStream<int>(choice);
     std::cout<<"You entered:"<<choice<<"\n";
     switch(MainMenuChoice(choice))
     {
@@ -160,6 +161,6 @@ void Store::launch()
     default:
       break;
     }
-  }
+  }while(choice);
 }
 

@@ -69,7 +69,17 @@ namespace SuperStore
     /** @brief A helper function to safely read product Id from console 
     *   @return uint16_t
     */
-    static uint16_t readProductIdFromConsole();
+    static uint16_t getProductIdFromConsole();
+  
+    /** @brief A helper function to help read product description from console
+    *   @return std::string
+    */
+    static std::string getProductDescriptionFromConsole();
+
+    /** @brief A helper function to help read product price from console
+    *   @return double
+    */
+    static double getProductPriceFromConsole();
 
   };
 

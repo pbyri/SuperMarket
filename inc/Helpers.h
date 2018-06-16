@@ -58,39 +58,24 @@ namespace SuperStore
   template<typename DataType>
   DataType GetDataFromStream<DataType>::readDataFromStream(std::istream &stream)
   {
-    // Only loop as long as the stream is valid. Otherwise it leads to an
-    // infinite loop
-    while(stream)
+    DataType data;   /*!< stores the actual value read from stream */
+    std::string user_input; /*!< a string to read user input from the stream */
+    // Continue to loop as long as the stream is valid and user inputs a line 
+    // into the stream
+    // read a line from the stream into 'user_input'
+    while(stream 
+         && (std::getline(stream, user_input)))
     {
-      std::string input_data; /*!< captures the input data from the input stream */
-      // read a line from the input stream
-      std::getline(stream, input_data);
-      // push the user input data into a string stream
-      std::stringstream input_stream(input_data);
-      /*!< variable to store the desired data safely extracted from the stream */
-      DataType value;
-
-      if(!(input_stream >> value))
+      // pass the line into a stringstream object
+      std::istringstream instream{user_input};
+      // The data entered can be properly read into the destination DataType
+      // and there is no trailing non-whitespace characters after that
+      if((instream >> data) && !(instream >> user_input))
       {
-        // The data from the stream was not of desired DataType
-        std::cout << "Nice try ! Please enter valid data\n";
-        continue;
+        // we have successfully read the desired data from the stream. Exit now
+        break;
       }
-      // Now the data entered has matched expected DataType. But, does it contain
-      // trailing undesired data?? Then the input is still invalid
-      char trail;
-
-      if(input_stream >> trail)
-      {
-        std::cout << "Nice try ! Please enter valid data\n";
-        continue;
-      }
-      // we have extracted data safely from the stream. return that
-      return value;
-    } // while(stream)
-    // if we reached here, it means we ran out of input from the input stream
-    // and we dont have any valid data yet.Throw exception? revisit this.
-    //throw std::invalid_argument("stream is not valid");
-    return 0;
+    } // while
+    return data;
   } // GetDataFromStream::readDataFromstream()
 } // namespace SuperStore
