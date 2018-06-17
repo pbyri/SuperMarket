@@ -17,7 +17,7 @@ Inventory::Inventory(const std::string &name) : m_name(name)
 {
 }
 
-bool Inventory::addProduct(std::shared_ptr<Product> product)
+bool Inventory::addProduct(std::unique_ptr<Product> product)
 {
   // if the inventory already has a product with the given Id, return false
   // Otherwise, add the product to the catalog and return true
@@ -25,7 +25,7 @@ bool Inventory::addProduct(std::shared_ptr<Product> product)
   {
     return false;
   }
-  m_catalog[product->getID()] = product;
+  m_catalog[product->getID()] = std::move(product);
   return true;
 }
 

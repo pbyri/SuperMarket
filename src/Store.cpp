@@ -32,7 +32,7 @@ uint16_t Store::getInventorySize() const
   return m_pInventory->getProductCount();
 }
 
-bool Store::addProductToInventory(std::shared_ptr<Product> product)
+bool Store::addProductToInventory(std::unique_ptr<Product> product)
 {
   // if there is already a product in the inventory with the same Id,
   // return false. product cannot be added to the inventory
@@ -41,7 +41,7 @@ bool Store::addProductToInventory(std::shared_ptr<Product> product)
     std::cout<<"ERROR!! Please choose a unique ID for every product\n";
     return false;
   }
-  return m_pInventory->addProduct(product);
+  return m_pInventory->addProduct(std::move(product));
 }
 
 bool Store::removeProductFromInventory(uint16_t id)

@@ -25,7 +25,7 @@ SCENARIO("Validate addition and removal of Product from Store","[Store]")
     REQUIRE(store.getInventorySize() == 0);
     WHEN("A new product is added to the store")
     {
-      store.addProductToInventory(std::make_shared<Product>(20,
+      store.addProductToInventory(std::make_unique<Product>(20,
 							     "Paste",
 							     10.76));
       THEN("The Inventory size increases by 1")
@@ -35,7 +35,7 @@ SCENARIO("Validate addition and removal of Product from Store","[Store]")
     }
     WHEN("An existing product is removed from inventory")
     {
-      store.addProductToInventory(std::make_shared<Product>(20,
+      store.addProductToInventory(std::make_unique<Product>(20,
 							     "Paste",
 							     10.76));
       store.removeProductFromInventory(20);

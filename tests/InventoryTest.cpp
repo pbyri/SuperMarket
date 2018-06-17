@@ -24,7 +24,7 @@ SCENARIO("validate Inventory Object", "[Inventory]")
     REQUIRE(catalog.getProductCount() == 0);
     WHEN("A new prduct is added to the Inventory")
     {
-      catalog.addProduct(std::make_shared<Product>(10,"soap",1.2));
+      catalog.addProduct(std::make_unique<Product>(10,"soap",1.2));
       THEN("product count of inventory increases by 1")
       {
         REQUIRE(catalog.getProductCount() == 1);
@@ -32,7 +32,7 @@ SCENARIO("validate Inventory Object", "[Inventory]")
     }
     WHEN("An existing product is removed from Inventory")
     {
-      catalog.addProduct(std::make_shared<Product>(20,"belt",14));
+      catalog.addProduct(std::make_unique<Product>(20,"belt",14));
       catalog.removeProduct(20);
       THEN("product count decreases by 1")
       {

@@ -30,7 +30,7 @@ namespace SuperStore
   {
     public:
       /*!< typedef for Catalog */
-      typedef std::unordered_map<uint16_t, std::shared_ptr<Product>> Catalog;
+      typedef std::unordered_map<uint16_t, std::unique_ptr<Product>> Catalog;
       /** @brief Constructor with std::string argument
        *  @param[in] name: Name of the supermarket
        */
@@ -40,14 +40,14 @@ namespace SuperStore
        */
       inline std::string getName() const;
       /** @brief A helper function to add new Product to the Inventory 
-       *  @param[in] product A shared_ptr of Product type
+       *  @param[in] product A unique_ptr of Product type
        *  @return bool
        *  This method takes a product object and adds it to the inventory of 
        *  the supermarket. If the product was successfully added to the inventory
        *  the function returns true. Otherwise it returns false.
        *
        */
-      bool addProduct (std::shared_ptr<Product> product);
+      bool addProduct (std::unique_ptr<Product> product);
       /** @brief A helper function to remove an existing Product from Inventory
        *  @param[in] product_id unique identifier of the Product that needs to 
        *  be removed from the Inventory

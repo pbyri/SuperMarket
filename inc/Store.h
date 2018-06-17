@@ -55,7 +55,7 @@ namespace SuperStore
   */
   uint16_t getInventorySize() const;
   /** @brief A helper function to add a new product to the Store Inventory
-  *   @param[in] product A shared_ptr of Product type that needs to be added
+  *   @param[in] product A unique_ptr of Product type that needs to be added
   *   to the store inventory
   *   @return bool
   *
@@ -64,7 +64,7 @@ namespace SuperStore
   *   it returns false.
   *
   */
-  bool addProductToInventory(std::shared_ptr<Product> product);
+  bool addProductToInventory(std::unique_ptr<Product> product);
   /** @brief A helper function to remove a product from Store Inventory
   *   @param[in] Id A unique id that identifies a product to be removed from
   *   the store inventory
