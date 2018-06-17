@@ -112,19 +112,34 @@ void Store::serviceCustomer()
 
 void Store::addNewProduct()
 {
-  if(this->addProductToInventory(Product::CreateNewProduct()))
+  bool bError = false;
+  do
   {
-    std::cout << "successfully added product!!\n";
+    auto product = Product::CreateNewProductFromStream(std::cin);
+    if(!product)
+    {
+      bError = true;
+      break;
+    }
+    if(!this->addProductToInventory(std::move(product)))
+    {
+      bError = true;
+      break;
+    }
+  }while(0);
+  if(bError)
+  {
+    std::cout << "ERROR!! Something went wrong\n";
   }
   else
   {
-    std::cout << "OOPS!! something went wrong. Please try again!\n";
+    std::cout << "SUCCESSFULLY ADDED PRODUCT\n";
   }
-}
+}// addNewProduct()
 
 void Store::deleteProduct()
 {
-  auto Id = Product::getProductIdFromConsole();
+  auto Id = getUint16FromStream(std::cin);
   if(this->removeProductFromInventory(Id))
   {
     std::cout << "SUCCESSFULLY REMOVED PRODUCT!!\n";

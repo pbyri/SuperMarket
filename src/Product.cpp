@@ -25,66 +25,44 @@ Product::~Product()
 {
 }
 
-uint16_t Product::getProductIdFromConsole()
+uint16_t Product::getProductIdFromStream(std::istream &stream)
 {
   std::cout<<"Please enter a unique Id for the product:";
-  int value = 0;
+  uint16_t product_id;
   do
   {
-    std::cin >> GetDataFromStream<int>(value);
-    // check whether the user entered a valid data
-    if(value < 0 || value > UINT16_MAX)
-    {
-      std::cout << "Please enter a valid uint16 number : ";
-    }
-    else
-    {
-      break;
-    }
-  }while(true);
-  return value;
-}// readProductIdFromConsole
+    product_id =  getUint16FromStream(stream);
+  }while(!product_id);// Keep looping until user enters non-zero Id
+}// rgetProductIdFromConsole
 
-std::string Product::getProductDescriptionFromConsole()
+/** @TODO DO NOT ALLOW WHITESPACES TO BE A VALID DESCRIPTION */
+std::string Product::getProductDescriptionFromStream(std::istream &stream)
 {
   std::cout<<"Please enter a brief description for the product:";
   std::string desc;
   do
   {
-    std::getline(std::cin, desc);
-    if(desc.length())
-    {
-      break;
-    }
-  }while(true);
+    std::getline(stream, desc);
+  }while(!desc.length());// Keep looping until user enters a non-empty description
   return desc;
 }
 
-double Product::getProductPriceFromConsole()
+double Product::getProductPriceFromStream(std::istream &stream)
 {
   std::cout << "Please enter the price of the product:";
   double price = 0;
   do
   {
-    std::cin >> GetDataFromStream<double>(price);
-    if(price <= 0)
-    {
-      std::cout << "Please enter a value greater than zero for price : ";
-      continue;
-    }
-    else
-    {
-      break;
-    }
-  }while(true);
+    price = getDoubleFromStream(stream);
+  }while(price <= 0); // keep looping until user enters a positive number
   return price;
 }
-std::shared_ptr<Product> Product::CreateNewProduct()
+std::unique_ptr<Product> Product::CreateNewProductFromStream(std::istream &inStream)
 {
-  auto Id = Product::getProductIdFromConsole();
-  auto name = Product::getProductDescriptionFromConsole();
-  auto price = Product::getProductPriceFromConsole();
-  return std::make_shared<Product>(Id,
+  auto Id = Product::getProductIdFromStream(inStream);
+  auto name = Product::getProductDescriptionFromStream(inStream);
+  auto price = Product::getProductPriceFromStream(inStream);
+  return std::make_unique<Product>(Id,
                                    name,
                                    price); 
 }

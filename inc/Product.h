@@ -25,9 +25,10 @@ namespace SuperStore
   public:
     /** @brief This is an interactive static factory method that helps create 
     *   a new Product
-    *   @return shared_ptr<Product>
+    *   @param[in] inStream An input stream to get product details from user
+    *   @return unique_ptr<Product>
     */
-    static std::shared_ptr<Product> CreateNewProduct();
+    static std::unique_ptr<Product> CreateNewProductFromStream(std::istream &inStream);
     /** @brief Constructor with parameters
     *   @param[in] Id A unique Id representing this Product
     *   @param[in] description A string that provides a brief description of
@@ -57,10 +58,6 @@ namespace SuperStore
     *
     */
     inline double getPrice() const;
-    /** @brief A helper function to safely read product Id from console 
-    *   @return uint16_t
-    */
-    static uint16_t getProductIdFromConsole();
     /** Destructor
     */
     ~Product();
@@ -70,15 +67,22 @@ namespace SuperStore
     double m_price; /*!< A price for which the product is available
 			 for purchase */
   
+    /** @brief A helper function to safely read product Id from  a stream
+    *   @param[in] inStream An input stream to read data from
+    *   @return uint16_t
+    */
+    static uint16_t getProductIdFromStream(std::istream &inStream);
     /** @brief A helper function to help read product description from console
+    *   @param[in] inStream An input stream to read data from
     *   @return std::string
     */
-    static std::string getProductDescriptionFromConsole();
+    static std::string getProductDescriptionFromStream(std::istream &inStream);
 
     /** @brief A helper function to help read product price from console
+    *   @param[in] inStream An input stream to read data from
     *   @return double
     */
-    static double getProductPriceFromConsole();
+    static double getProductPriceFromStream(std::istream &inStream);
 
   };
 
