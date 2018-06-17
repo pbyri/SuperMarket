@@ -7,6 +7,6 @@ else()
 endif()
 
 
-add_library(MyStore Product.cpp Inventory.cpp Store.cpp ShoppingCart.cpp)
+add_library(MyStore Helpers.cpp Product.cpp Inventory.cpp Store.cpp ShoppingCart.cpp)
 add_executable(SuperMarket SuperMarket.cpp) 
 target_link_libraries(SuperMarket MyStore)

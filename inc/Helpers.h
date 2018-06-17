@@ -78,4 +78,18 @@ namespace SuperStore
     } // while
     return data;
   } // GetDataFromStream::readDataFromstream()
+  /** @brief this method safely reads an integer from a stream and returns the value
+  *   @returns int
+  */
+
+  int getIntFromStream(std::istream &stream);
+  /** @brief This is a helper method to safely read uint16_t from a stream
+  *   @return uint16_t
+  */
+  uint16_t getUint16FromStream(std::istream &stream);
+  /** @brief this method safely reads a double from a stream and returns it
+  *   @returns double
+  */
+
+  double getDoubleFromStream(std::istream &stream);
 } // namespace SuperStore

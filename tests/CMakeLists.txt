@@ -6,7 +6,7 @@ else()
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++14")
 endif()
 
-add_executable(TestSuperMarket ProductTest.cpp InventoryTest.cpp StoreTest.cpp ShoppingCartTest.cpp main.cpp) 
+add_executable(TestSuperMarket ProductTest.cpp InventoryTest.cpp StoreTest.cpp ShoppingCartTest.cpp HelpersTest.cpp main.cpp) 
 target_link_libraries(TestSuperMarket MyStore)
 
 enable_testing()
