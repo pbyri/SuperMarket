@@ -42,6 +42,15 @@ namespace SuperStore
     DELETE_PRODUCT,          /*!< option to delete existing product from inventory */
     VIEW_INVENTORY           /*!< option to view the inventory */
   };
+  /** @brief enum for customer menu selection
+  */
+  enum class CustomerMenuChoice
+  {
+    RETURN_TO_MAIN_MENU,   /*!< opotion to return to main menu */
+    PURCHASE_PRODUCT,      /*!< option to purchase a product */
+    EDIT_SHOPPING_CART,    /*!< option to make changes to shopping cart */
+    CHECKOUT_AND_PAY       /*!< option to checkout and pay dues to the store */
+  };
   /** @brief Constructor with std::string parameter
   *   @param[in] name A string that contains the name of the Store
   */
@@ -140,6 +149,7 @@ namespace SuperStore
   */
   std::unique_ptr<Inventory> m_pInventory;
   std::string m_name; /*!< Name of the store */
+  static unit16_t order_id; /*!< a hack to maintain unique order_id */
 
   /** @brief This is a helper method to create a new product and add it to inventory
   *   @return void

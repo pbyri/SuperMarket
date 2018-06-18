@@ -72,13 +72,13 @@ bool Inventory::hasProductById(uint16_t id) const
 
 // if the inventory has a product with the given Id, return a pointer to the
 // Product object. Otherwise, return nullptr
-const Product* Inventory::getProductById(uint16_t id) 
+std::shared_ptr<Product> Inventory::getProductById(uint16_t id) 
 {
  assert(this->hasProductById(id));
 
  if(this->hasProductById(id))
  {
-   return m_catalog[id].get();
+   return m_catalog[id];
  }
  return nullptr;
 }

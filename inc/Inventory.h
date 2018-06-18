@@ -94,7 +94,7 @@ namespace SuperStore
       *   }
       *   @endcode
       */
-      const Product* getProductById(uint16_t id);
+      std::shared_ptr<Product> getProductById(uint16_t id);
       /** @brief get number of distinct Product types present in the Inventory
       *   @return uint16_t
       *

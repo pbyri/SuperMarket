@@ -12,6 +12,8 @@
 
 using namespace SuperStore;
 
+uint16_t Store::order_id = 0;
+
 Store::Store(const std::string &name)
     :m_name(name)
 {
@@ -84,28 +86,82 @@ void Store::displayStoreAdminMenu() const
 
 void Store::displayCustomerMenu() const
 {
-  m_pInventory->displayCatalog();
-  std::cout<<"Please enter the id of the product you like to purchase" <<
-  "(Enter 0 to return back to MainMenu):";
+  //m_pInventory->displayCatalog();
+  std::cout<<"Please choose from the below options :\n" <<
+  "0) Return too Main Menu\n1)Purchase a product\n2)Edit Shopping cart\n" <<
+  "3) Checkout and Pay\nPlease Enter your choice : ";
 }
 
+std::unique_ptr<PurchaseOrder> getPurchaseOrderFromStream(std::istream &stream)
+{
+  do
+  {
+    std::cout << "enter product id:";
+    auto product_id = getUint16FromStream(stream);
+    if(!product_id || !this->hasProductById(product_id))
+    {
+      break;
+    }
+    uint16_t quantity = 0;
+    do
+    {
+      std::cout << "enter quantity : ";
+      quantity = getUint16FromStream(stream);
+    }while(!quantity);
+    auto sp = m_pInventory->getProductById(product_id);
+    if(sp)
+    {
+      return std::make_unique<PurchasseOrder>(++(this->order_id),
+                                             sp,
+					     quantity);
+    }
+
+  }while(true);
+  return std::unique_ptr<PurchaseOrder> {};
+}
+void Store::purchaseProduct()
+{
+  m_pInventory->displayCatalog();
+  do
+  {
+    std::cout <<  "Please enter the Id of the product you like to purchase" <<
+    "(Enter 0 if you are done) : " ;
+    auto product_id = getUint16FromStream(std::cin);
+    if(!product_id) { break; }
+    std::cout << "Please enter how much quantity you'd like to buy : ";
+    uint16_t quantity = 0;
+    do
+    {
+      quantity = getUint16FromStream(std::cin);
+    }while(!quantity);
+  }while(true);
+}
 void Store::serviceCustomer()
 {
   int choice;
   do
   {
-    this->displayCustomerMenu();
-    std::cin >> GetDataFromStream<int>(choice);
-    if(choice)
+    choice = getIntFromStream(std::cin);
+    switch(CustomerMenuChoice(choice))
     {
-      if(m_pInventory->hasProductById(choice))
+      case CustomerMenuChoice::RETURN_TO_MAIN_MENU:
       {
-        /* create order and add to shopping cart */
+        return;
       }
-      else
+      case CustomerMenuChoice::PURCHASE_PRODUCT:
       {
-        std::cout<<"Please enter a valid Product Id\n";
+        break;
       }
+      case CustomerMenuChoice::EDIT_SHOPPING_CART:
+      {
+        break;
+      }
+      case CustomerMenuChoice::CHECKOUT_AND_PAY:
+      {
+        break;
+      }
+      default:
+        break;
     }
   }while(choice);
 }
