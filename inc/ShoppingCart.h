@@ -29,12 +29,12 @@ namespace SuperStore
   public:
     /** @brief Constructor with 3 arguments
     *   @param[in] order_num A unique Id to identify  this PurchaseOrder
-    *   @param[in] product A shared_ptr of Product type that is tied to this
+    *   @param[in] product A weak_ptr of Product type that is tied to this
     *   PurchaseOrder
     *   @param[in] quantity The number of instances of product being purchased.
     */
     PurchaseOrder(uint16_t order_num,
-                  std::shared_ptr<Product> prodiuct,
+                  std::weak_ptr<Product> prodiuct,
                   uint16_t quantity);
     /** @brief return the cost of this PurchaseOrder
     *   @return double
@@ -54,7 +54,7 @@ namespace SuperStore
     */
     ~PurchaseOrder();
   private:
-    std::shared_ptr<Product> m_pProduct; /*!< Product being purchased */ 
+    std::weak_ptr<Product> m_pProduct; /*!< Product being purchased */ 
     uint16_t m_quantity; /*!< number of instances of Product purchased */
     uint16_t m_orderNumber; /*!< unique number for the purchase order */
   };
@@ -72,7 +72,7 @@ namespace SuperStore
     */
     ShoppingCart();
     /** @brief add a PuchaseOrder to the ShoppingCart
-    *   @param[in] order A shared_ptr of type PurchaseOrder that needs to be 
+    *   @param[in] order A unique_ptr of type PurchaseOrder that needs to be 
     *   added to the cart.
     *   @return void
     */

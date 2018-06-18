@@ -12,7 +12,7 @@
 using namespace SuperStore;
 
 PurchaseOrder::PurchaseOrder(uint16_t order_number,
-                            std::shared_ptr<Product> product,
+                            std::weak_ptr<Product> product,
 			    uint16_t quantity)
     :m_orderNumber(order_number),
     m_pProduct(product),
@@ -30,7 +30,12 @@ PurchaseOrder::~PurchaseOrder()
 */
 double PurchaseOrder::getCost() const
 {
-  return this->m_pProduct->getPrice() * this->m_quantity;
+  auto product = m_pProduct.lock();
+  if(product)
+  {
+    return product->getPrice() * this->m_quantity;
+  }
+  return 0;
 }
 
 uint16_t PurchaseOrder::getOrderNumber() const

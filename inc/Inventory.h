@@ -30,7 +30,7 @@ namespace SuperStore
   {
     public:
       /*!< typedef for Catalog */
-      typedef std::unordered_map<uint16_t, std::unique_ptr<Product>> Catalog;
+      typedef std::unordered_map<uint16_t, std::shared_ptr<Product>> Catalog;
       /** @brief Constructor with std::string argument
        *  @param[in] name: Name of the supermarket
        */

@@ -14,10 +14,9 @@ using namespace SuperStore;
 
 TEST_CASE("verify PurchaseOrder object creation","[PurchaseOrder]")
 {
+  auto product = std::make_shared<Product>(10,"pen",3.33);
   auto order = std::make_unique<PurchaseOrder>(12254,
-                                              std::make_shared<Product>(10,
-                                                                       "pen",
-                                                                       3.33),
+					      product,
                                               3);
   REQUIRE(order);
   REQUIRE(order.get());
@@ -42,10 +41,9 @@ SCENARIO("verify adding and removing purchase order to/from the cart",\
     REQUIRE(cart->getNumberOfPurchaseOrders() == 0);
     WHEN("A purchase order is added to the cart")
     {
+      auto product = std::make_shared<Product>(10,"pen",3.33);
       auto order = std::make_unique<PurchaseOrder>(12254,
-                                                  std::make_shared<Product>(10,
-                                                                           "pen",
-                                                                           3.33),
+						  product,
                                                   3);
       REQUIRE(order.get());
       cart->addToCart(std::move(order));
@@ -56,10 +54,9 @@ SCENARIO("verify adding and removing purchase order to/from the cart",\
     }
     WHEN("When a PurchaseOrder is removed from the cart")
     {
+      auto product = std::make_shared<Product>(10,"pen",3.33);
       auto order = std::make_unique<PurchaseOrder>(12254,
-                                                  std::make_shared<Product>(10,
-                                                                           "pen",
-                                                                           3.33),
+						  product,
                                                   3);
       REQUIRE(order.get());
       REQUIRE(cart->getNumberOfPurchaseOrders() == 0);
