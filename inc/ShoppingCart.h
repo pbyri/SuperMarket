@@ -50,6 +50,10 @@ namespace SuperStore
     *
     */
     uint16_t getOrderNumber() const;
+    /** @brief This method displays a PurchaseOrder in human readable form
+    *   @return void
+    */
+    void display() const;
     /** Destructor
     */
     ~PurchaseOrder();
@@ -91,6 +95,10 @@ namespace SuperStore
     *
     */
     uint16_t getNumberOfPurchaseOrders() const;
+    /** @brief This method helps display the ShoppingCart in human readable form
+    *   @return void
+    */
+    void display() const;
     /** Destructor
     */
     ~ShoppingCart();

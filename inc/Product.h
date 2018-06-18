@@ -58,6 +58,10 @@ namespace SuperStore
     *
     */
     inline double getPrice() const;
+    /** @brief This function prints a product in human readable form
+    *   @return void
+    */
+    void display() const;
     /** Destructor
     */
     ~Product();

@@ -66,3 +66,9 @@ std::unique_ptr<Product> Product::CreateNewProductFromStream(std::istream &inStr
                                    name,
                                    price); 
 }
+
+void Product::display() const
+{
+  std::cout << this->m_id << " " << this->m_description << "  " <<
+  this->m_price << std::endl;
+}

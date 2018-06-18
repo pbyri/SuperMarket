@@ -8,6 +8,7 @@
 #include "Product.h"
 #include "ShoppingCart.h"
 #include <algorithm>
+#include <iostream>
 
 using namespace SuperStore;
 
@@ -41,6 +42,16 @@ double PurchaseOrder::getCost() const
 uint16_t PurchaseOrder::getOrderNumber() const
 {
   return m_orderNumber;
+}
+
+void PurchaseOrder::display() const
+{
+  auto sp = m_pProduct.lock();
+  if(sp)
+  {
+    std::cout << m_orderNumber << " " << sp->getDescription() << "  " <<
+    this->m_quantity << " " << this->getCost() << std::endl;
+  }
 }
 
 ShoppingCart::ShoppingCart()
@@ -87,3 +98,15 @@ uint16_t ShoppingCart::getNumberOfPurchaseOrders() const
   return m_orders.size();
 }
 
+void ShoppingCart::display() const
+{
+  std::cout << "====================================================\n";
+  std::cout << "Order ID" << "  " << "Description" << " " <<
+  "Quantity" << " " << "Cost" << "\n";
+  std::cout << "====================================================" << 
+  std::endl;
+  std::for_each(m_orders.begin()
+               , m_orders.end()
+               ,[](auto &order) { order->display(); }
+               ); 
+}

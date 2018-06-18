@@ -17,6 +17,8 @@ namespace SuperStore
   /*!< Forward declarations */
   class Inventory;
   class Product;
+  class PurchaseOrder;
+  class ShoppingCart;
   /** @brief class Store: prototypes the grocery store
   *
   * This class represents a super market store
@@ -41,6 +43,15 @@ namespace SuperStore
     ADD_NEW_PRODUCT,         /*!< option for adding new product to inventory */
     DELETE_PRODUCT,          /*!< option to delete existing product from inventory */
     VIEW_INVENTORY           /*!< option to view the inventory */
+  };
+  /** @brief enum for customer menu selection
+  */
+  enum class CustomerMenuChoice
+  {
+    RETURN_TO_MAIN_MENU,   /*!< opotion to return to main menu */
+    PURCHASE_PRODUCT,      /*!< option to purchase a product */
+    EDIT_SHOPPING_CART,    /*!< option to make changes to shopping cart */
+    CHECKOUT_AND_PAY       /*!< option to checkout and pay dues to the store */
   };
   /** @brief Constructor with std::string parameter
   *   @param[in] name A string that contains the name of the Store
@@ -140,6 +151,8 @@ namespace SuperStore
   */
   std::unique_ptr<Inventory> m_pInventory;
   std::string m_name; /*!< Name of the store */
+  static uint16_t order_id; /*!< a hack to maintain unique order_id */
+  std::unique_ptr<ShoppingCart> m_cart; /*!< Shopping Cart */
 
   /** @brief This is a helper method to create a new product and add it to inventory
   *   @return void
@@ -150,6 +163,24 @@ namespace SuperStore
   *   @return void
   */
   void deleteProduct();
+  /** @brief gets input from a stream for creating a purchase order
+  *   @param[in] s An input stream from which to read the data
+  *   @return std::unique_ptr<PurchaseOrder>
+  *
+  *   This method gets input from the user and creates a PurchaseOrder based on
+  *   the inputs provided. If the PurchaseOrder could not be created, it returns
+  *   an empty unique_ptr
+  */
+  std::unique_ptr<PurchaseOrder> getPurchaseOrderFromStream(std::istream &s);
+  /** @brief This function provides all the functionality required to purchase
+   *  a product for the customer
+   *  @return void
+   */
+   void purchaseProduct();
+  /** @brief This method displays the Shopping Cart and also helps make changes
+  *   to the shopping cart
+  */
+  void viewOrEditShoppingCart();
   };
 }
 #endif
