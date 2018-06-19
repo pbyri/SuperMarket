@@ -33,6 +33,7 @@ uint16_t Product::getProductIdFromStream(std::istream &stream)
   {
     product_id =  getUint16FromStream(stream);
   }while(!product_id);// Keep looping until user enters non-zero Id
+  return product_id;
 }// rgetProductIdFromConsole
 
 /** @TODO DO NOT ALLOW WHITESPACES TO BE A VALID DESCRIPTION */
