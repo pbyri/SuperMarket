@@ -39,5 +39,26 @@ SCENARIO("validate Inventory Object", "[Inventory]")
         REQUIRE(catalog.getProductCount() == 0);
       }
     }
+    WHEN("If same product is added again, inventory size remains same")
+    {
+      catalog.addProduct(std::make_unique<Product>(20,"belt",14));
+      auto size = catalog.getProductCount();
+      catalog.addProduct(std::make_unique<Product>(20,"belt",14));
+      THEN("product count decreases by 1")
+      {
+        REQUIRE(size == catalog.getProductCount());
+      }
+    }
+    WHEN("getProductById is invoked")
+    {
+      auto product = std::make_unique<Product>(20,"belt",14);
+      const Product *ptr = product.get();
+      catalog.addProduct(std::move(product));
+      auto shared = catalog.getProductById(20);
+      THEN("it should return the original product object")
+      {
+        REQUIRE(ptr == shared.get());
+      }
+    }
   }
 }
