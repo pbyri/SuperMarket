@@ -9,6 +9,8 @@
 #include "ShoppingCart.h"
 #include <algorithm>
 #include <iostream>
+#include "assert.h"
+#include "Helpers.h"
 
 using namespace SuperStore;
 
@@ -54,6 +56,12 @@ void PurchaseOrder::display() const
   }
 }
 
+void PurchaseOrder::updateQuantity(uint16_t quantity)
+{
+  assert(quantity);
+  m_quantity = quantity;
+}
+
 ShoppingCart::ShoppingCart()
 {
 }
@@ -80,6 +88,32 @@ void ShoppingCart::addToCart(std::unique_ptr<PurchaseOrder> order)
   }
 }
 
+void ShoppingCart::updateOrder()
+{
+  uint16_t order_id;
+  do
+  {
+    std::cout << "Please enter the order id you want to update : ";
+    order_id = getUint16FromStream(std::cin);
+    auto iter = std::find_if(m_orders.begin(),
+                             m_orders.end(),
+                             [order_id](auto &order_) {
+                             return order_->getOrderNumber() == order_id;
+                             }
+                            );
+   if(iter != m_orders.end())
+   {
+     uint16_t quantity = 0;
+     do
+     {
+       std::cout << "Enter new quantity : ";
+       quantity = getUint16FromStream(std::cin);
+     }while(!quantity);
+     (*iter)->updateQuantity(quantity);
+   }
+  }while(order_id);
+}
+
 void ShoppingCart::removeFromCart(uint16_t order_id)
 {
   // Erase all PurchaseOrders with order_id
@@ -100,6 +134,7 @@ uint16_t ShoppingCart::getNumberOfPurchaseOrders() const
 
 void ShoppingCart::display() const
 {
+  double total_cost = 0;
   std::cout << "====================================================\n";
   std::cout << "Order ID" << "  " << "Description" << " " <<
   "Quantity" << " " << "Cost" << "\n";
@@ -107,6 +142,10 @@ void ShoppingCart::display() const
   std::endl;
   std::for_each(m_orders.begin()
                , m_orders.end()
-               ,[](auto &order) { order->display(); }
+               ,[&total_cost](auto &order) { 
+                             order->display();
+                             total_cost += order->getCost();
+                             }
                ); 
+  std::cout << "Total Cost : " << total_cost << std::endl;
 }

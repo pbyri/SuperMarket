@@ -17,6 +17,7 @@ namespace SuperStore
 {
   /*!< Forward Declarations */
   class Product;
+  class ShoppingCart;
   /** @brief  class PurchaseOrder: prototypes a PurchaseOrder
   *
   *  This class represents one purchase order. One PurchaseOrder pertains to
@@ -27,6 +28,8 @@ namespace SuperStore
   class PurchaseOrder
   {
   public:
+    /// @brief a friend class of PurchaseOrder
+    friend class ShoppingCart;
     /** @brief Constructor with 3 arguments
     *   @param[in] order_num A unique Id to identify  this PurchaseOrder
     *   @param[in] product A weak_ptr of Product type that is tied to this
@@ -61,6 +64,12 @@ namespace SuperStore
     std::weak_ptr<Product> m_pProduct; /*!< Product being purchased */ 
     uint16_t m_quantity; /*!< number of instances of Product purchased */
     uint16_t m_orderNumber; /*!< unique number for the purchase order */
+
+    /** @bried update the quantity field of the PurchaseOrder
+    *   @param[in] quantity The new quantity for this order
+    *   @return void
+    */
+    void updateQuantity(uint16_t quantity);
   };
 
   /** @brief class ShoppingCart: prototypes the shopping cart
@@ -99,6 +108,10 @@ namespace SuperStore
     *   @return void
     */
     void display() const;
+    /** @brief A helper method to update a purchase order in the cart
+    *   @return void
+    */
+    void updateOrder();
     /** Destructor
     */
     ~ShoppingCart();

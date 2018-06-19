@@ -136,9 +136,48 @@ void Store::purchaseProduct()
   }while(true);
 }
 
+void Store::deleteOrder()
+{
+  uint16_t order_id;
+  std::cout << "Please Enter the order id to be deleted : ";
+  order_id = getUint16FromStream(std::cin);
+  m_cart->removeFromCart(order_id);
+}
+
+void Store::updateOrder()
+{
+  m_cart->updateOrder();
+}
 void Store::viewOrEditShoppingCart()
 {
-  m_cart->display();
+  uint16_t choice;
+  do
+  {
+    m_cart->display();
+    std::cout << "Please select a choice from below :\n";
+    std::cout << "0) Done\n1)Delete an Order\n2)Update an order\n";
+    std::cout << "Please enter your choice : ";
+    choice = getUint16FromStream(std::cin);
+    switch(EditCartChoice(choice))
+    {
+      case EditCartChoice::DONE :
+      {
+        return;
+      }
+      case EditCartChoice::DELETE_ORDER:
+      {
+        this->deleteOrder();
+        break;
+      }
+      case EditCartChoice::UPDATE_ORDER:
+      {
+        this->updateOrder();
+        break;
+      }
+      default:
+        break;
+    }
+  }while(choice);
 }
 
 void Store::serviceCustomer()

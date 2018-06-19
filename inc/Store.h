@@ -53,6 +53,14 @@ namespace SuperStore
     EDIT_SHOPPING_CART,    /*!< option to make changes to shopping cart */
     CHECKOUT_AND_PAY       /*!< option to checkout and pay dues to the store */
   };
+  /** @brief enum for choice while editing shopping cart
+  */
+  enum class EditCartChoice
+  {
+    DONE,         /*!< Done and go back to previous screen */
+    DELETE_ORDER, /*!< Delete an order from the cart */
+    UPDATE_ORDER  /*!< Update an order in the cart */
+  };
   /** @brief Constructor with std::string parameter
   *   @param[in] name A string that contains the name of the Store
   */
@@ -180,6 +188,8 @@ namespace SuperStore
   /** @brief This method displays the Shopping Cart and also helps make changes
   *   to the shopping cart
   */
+  void deleteOrder();
+  void updateOrder();
   void viewOrEditShoppingCart();
   };
 }
