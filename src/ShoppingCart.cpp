@@ -10,7 +10,6 @@
 #include <algorithm>
 #include <iostream>
 #include "assert.h"
-#include "Helpers.h"
 
 using namespace SuperStore;
 
@@ -62,7 +61,8 @@ void PurchaseOrder::updateQuantity(uint16_t quantity)
   m_quantity = quantity;
 }
 
-ShoppingCart::ShoppingCart()
+ShoppingCart::ShoppingCart(InStreamHolder &stream)
+    :m_iStream(stream)
 {
 }
 
@@ -94,7 +94,7 @@ void ShoppingCart::updateOrder()
   do
   {
     std::cout << "Please enter the order id you want to update : ";
-    order_id = getUint16FromStream(std::cin);
+    order_id = getUint16FromStream(m_iStream);
     auto iter = std::find_if(m_orders.begin(),
                              m_orders.end(),
                              [order_id](auto &order_) {
@@ -107,7 +107,7 @@ void ShoppingCart::updateOrder()
      do
      {
        std::cout << "Enter new quantity : ";
-       quantity = getUint16FromStream(std::cin);
+       quantity = getUint16FromStream(m_iStream);
      }while(!quantity);
      (*iter)->updateQuantity(quantity);
    }

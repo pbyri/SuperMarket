@@ -9,6 +9,7 @@
 #define SUPERMARKET_STORE_H
 #include <string>
 #include <memory>
+#include "Helpers.h"
 
 /** @brief namespace SuperStore encapsulates all definitions for SuperMarket
 */
@@ -64,7 +65,8 @@ namespace SuperStore
   /** @brief Constructor with std::string parameter
   *   @param[in] name A string that contains the name of the Store
   */
-  Store(const std::string &name);
+  Store(const std::string &name
+       , InStreamHolder &stream = cin_holder());
   /** @brief returns the name of the Store
   *   @return std::string
   */
@@ -161,6 +163,7 @@ namespace SuperStore
   std::string m_name; /*!< Name of the store */
   static uint16_t order_id; /*!< a hack to maintain unique order_id */
   std::unique_ptr<ShoppingCart> m_cart; /*!< Shopping Cart */
+  InStreamHolder m_iStream; /*!< Holder for input stream */
 
   /** @brief This is a helper method to create a new product and add it to inventory
   *   @return void

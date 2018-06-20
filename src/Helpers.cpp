@@ -47,4 +47,20 @@ namespace SuperStore
     }
     return data;
   }
+
+  InStreamHolder::InStreamHolder(std::istream &stream) : m_inStream(stream)
+  {
+  }
+  
+  InStreamHolder::operator std::istream&()
+  {
+    return m_inStream;
+  }
+
+  InStreamHolder& cin_holder()
+  {
+    static InStreamHolder cin_stream(std::cin);
+    return cin_stream;
+  }
+
 }// namespace SuperStore

@@ -10,6 +10,7 @@
 
 #include <vector>
 #include <memory>
+#include "Helpers.h"
 
 /** @brief namespace SuperStore encapsulates all definitions for SuperMarket
 */
@@ -83,7 +84,7 @@ namespace SuperStore
   public:
     /** @brief Default Constructor
     */
-    ShoppingCart();
+    ShoppingCart(InStreamHolder &stream = cin_holder());
     /** @brief add a PuchaseOrder to the ShoppingCart
     *   @param[in] order A unique_ptr of type PurchaseOrder that needs to be 
     *   added to the cart.
@@ -119,6 +120,9 @@ namespace SuperStore
     /** @brief a vector of purchase orders
     */
     std::vector<std::unique_ptr<PurchaseOrder>> m_orders;
+    /** @brief A holder for input stream
+    */
+    InStreamHolder m_iStream;
   };
 }
 #endif

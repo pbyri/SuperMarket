@@ -3,6 +3,8 @@
 *   @author Pavan Kumar Byri
 *   @date 06-14-2018
 */
+#ifndef SUPERMARKET_HELPERS_H
+#define SUPERMARKET_HELPERS_H
 #include <iostream>
 #include <string>
 #include <sstream>
@@ -45,6 +47,22 @@ namespace SuperStore
     DataType readDataFromStream(std::istream &stream);
   };
 
+  /** @brief a class for istream holder
+  */
+  class InStreamHolder
+  {
+   public:
+   /** @brief Constructor that takes a reference to an input stream
+   *   @param[in] stream A reference to an input stream\
+   */
+   InStreamHolder(std::istream &stream);
+   /** @brief operator to return the contained istream object reference
+   *   @return std::istream&
+   */
+   operator std::istream&();
+   private:
+   std::istream &m_inStream; /*!< reference of the input stream being wrapped */
+  }; 
 
 /*****************************************************************************/
 /*           FUNCTION DEFINITIONS                                            */
@@ -92,4 +110,7 @@ namespace SuperStore
   */
 
   double getDoubleFromStream(std::istream &stream);
+
+  InStreamHolder& cin_holder();
 } // namespace SuperStore
+#endif
