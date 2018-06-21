@@ -16,8 +16,8 @@ uint16_t Store::order_id = 0;
 
 Store::Store(const std::string &name
             , InStreamHolder &stream)
-    :m_name(name)
-    ,m_iStream(stream)
+    :InStreamWrapper(stream)
+    ,m_name(name)
 {
   m_pInventory = std::make_unique<Inventory>("local");
   m_cart = std::make_unique<ShoppingCart>(stream);
@@ -128,7 +128,7 @@ void Store::purchaseProduct()
   m_pInventory->displayCatalog();
   do
   {
-    auto order = this->getPurchaseOrderFromStream(m_iStream);
+    auto order = this->getPurchaseOrderFromStream(getInputStream());
     if(!order)
     {
       break;
@@ -141,7 +141,7 @@ void Store::deleteOrder()
 {
   uint16_t order_id;
   std::cout << "Please Enter the order id to be deleted : ";
-  order_id = getUint16FromStream(m_iStream);
+  order_id = getUint16FromStream(getInputStream());
   m_cart->removeFromCart(order_id);
 }
 
@@ -158,7 +158,7 @@ void Store::viewOrEditShoppingCart()
     std::cout << "Please select a choice from below :\n";
     std::cout << "0) Done\n1)Delete an Order\n2)Update an order\n";
     std::cout << "Please enter your choice : ";
-    choice = getUint16FromStream(m_iStream);
+    choice = getUint16FromStream(getInputStream());
     switch(EditCartChoice(choice))
     {
       case EditCartChoice::DONE :
@@ -187,7 +187,7 @@ void Store::serviceCustomer()
   do
   {
     this->displayCustomerMenu();
-    choice = getIntFromStream(m_iStream);
+    choice = getIntFromStream(getInputStream());
     switch(CustomerMenuChoice(choice))
     {
       case CustomerMenuChoice::RETURN_TO_MAIN_MENU:
@@ -219,7 +219,7 @@ void Store::addNewProduct()
   bool bError = false;
   do
   {
-    auto product = Product::CreateNewProductFromStream(m_iStream);
+    auto product = Product::CreateNewProductFromStream(getInputStream());
     if(!product)
     {
       bError = true;
@@ -243,7 +243,7 @@ void Store::addNewProduct()
 
 void Store::deleteProduct()
 {
-  auto Id = getUint16FromStream(m_iStream);
+  auto Id = getUint16FromStream(getInputStream());
   if(this->removeProductFromInventory(Id))
   {
     std::cout << "SUCCESSFULLY REMOVED PRODUCT!!\n";
@@ -260,7 +260,7 @@ void Store::serviceStoreAdmin()
   do
   {
     this->displayStoreAdminMenu();
-    choice = getIntFromStream(m_iStream);
+    choice = getIntFromStream(getInputStream());
     switch(StoreAdminChoice(choice))
     {
       case StoreAdminChoice::RETURN_TO_MAIN_MENU:
@@ -300,7 +300,7 @@ void Store::launch()
   do
   {
     this->displayMainMenu();
-    choice = getIntFromStream(m_iStream);
+    choice = getIntFromStream(getInputStream());
     std::cout<<"You entered:"<<choice<<"\n";
     switch(MainMenuChoice(choice))
     {

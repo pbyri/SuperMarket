@@ -67,7 +67,7 @@ void PurchaseOrder::updateQuantity(uint16_t quantity)
 }
 
 ShoppingCart::ShoppingCart(InStreamHolder &stream)
-    :m_iStream(stream)
+    :InStreamWrapper(stream)
 {
 }
 
@@ -99,7 +99,7 @@ void ShoppingCart::updateOrder()
   do
   {
     std::cout << "Please enter the order id you want to update : ";
-    order_id = getUint16FromStream(m_iStream);
+    order_id = getUint16FromStream(getInputStream());
     auto iter = std::find_if(m_orders.begin(),
                              m_orders.end(),
                              [order_id](auto &order_) {
@@ -112,7 +112,7 @@ void ShoppingCart::updateOrder()
      do
      {
        std::cout << "Enter new quantity : ";
-       quantity = getUint16FromStream(m_iStream);
+       quantity = getUint16FromStream(getInputStream());
      }while(!quantity);
      (*iter)->updateQuantity(quantity);
    }

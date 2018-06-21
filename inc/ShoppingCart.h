@@ -11,6 +11,7 @@
 #include <vector>
 #include <memory>
 #include "Helpers.h"
+#include "StreamWrapper.h"
 
 /** @brief namespace SuperStore encapsulates all definitions for SuperMarket
 */
@@ -83,7 +84,7 @@ namespace SuperStore
   *   interested in purchasing similar to a shopping bag.
   *
   */
-  class ShoppingCart
+  class ShoppingCart : public InStreamWrapper
   {
   public:
     /** @brief Default Constructor
@@ -129,9 +130,6 @@ namespace SuperStore
     /** @brief a vector of purchase orders
     */
     std::vector<std::unique_ptr<PurchaseOrder>> m_orders;
-    /** @brief A holder for input stream
-    */
-    InStreamHolder m_iStream;
   };
 }
 #endif
