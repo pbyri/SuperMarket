@@ -57,6 +57,10 @@ namespace SuperStore
     /** @brief This method displays a PurchaseOrder in human readable form
     *   @return void
     */
+    /** @brief returns the quantity of this purchase order
+    *   @return uint16_t
+    */
+    uint16_t getQuantity() const;
     void display() const;
     /** Destructor
     */
@@ -113,6 +117,11 @@ namespace SuperStore
     *   @return void
     */
     void updateOrder();
+    /** @brief returns a pointer to the purchase order
+    *   @param[in] Id The id of the intended purchase order
+    *   @return const PurchaseOrder*
+    */
+    const PurchaseOrder* getPurchaseOrderById(uint16_t Id) const;
     /** Destructor
     */
     ~ShoppingCart();

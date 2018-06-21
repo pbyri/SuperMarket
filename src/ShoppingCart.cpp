@@ -55,6 +55,11 @@ void PurchaseOrder::display() const
   }
 }
 
+uint16_t PurchaseOrder::getQuantity() const
+{
+  return m_quantity;
+}
+
 void PurchaseOrder::updateQuantity(uint16_t quantity)
 {
   assert(quantity);
@@ -148,4 +153,20 @@ void ShoppingCart::display() const
                              }
                ); 
   std::cout << "Total Cost : " << total_cost << std::endl;
+}
+
+
+const PurchaseOrder* ShoppingCart::getPurchaseOrderById(uint16_t Id) const
+{
+  auto iter = std::find_if(m_orders.begin(),
+                           m_orders.end(),
+                           [Id](auto &order_) {
+                           return order_->getOrderNumber() == Id;
+                           }
+                          );
+  if(iter == m_orders.end())
+  {
+    return nullptr;
+  }
+  return (*iter).get();
 }
