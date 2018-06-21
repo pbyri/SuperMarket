@@ -20,6 +20,8 @@ namespace SuperStore
    *   @param[in] stream A reference to an input stream\
    */
    InStreamHolder(std::istream &stream = std::cin);
+   InStreamHolder(const InStreamHolder&) = delete;
+   const InStreamHolder& operator =(const InStreamHolder &) = delete;
    /** @brief operator to return the contained istream object reference
    *   @return std::istream&
    */
@@ -37,10 +39,12 @@ namespace SuperStore
   {
   public:
     InStreamWrapper(InStreamHolder &h = cin_holder());
+    InStreamWrapper(const InStreamWrapper&) = delete;
+    const InStreamWrapper& operator =(const InStreamWrapper&) = delete;
   protected:
     std::istream& getInputStream();
   private:
-    InStreamHolder m_holder;
+    InStreamHolder &m_holder;
   };
 }
 #endif

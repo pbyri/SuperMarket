@@ -60,7 +60,7 @@ namespace SuperStore
   template<typename DataType>
   DataType GetDataFromStream<DataType>::readDataFromStream(std::istream &stream)
   {
-    DataType data;   /*!< stores the actual value read from stream */
+    DataType data = 0;   /*!< stores the actual value read from stream */
     std::string user_input; /*!< a string to read user input from the stream */
     // Continue to loop as long as the stream is valid and user inputs a line 
     // into the stream

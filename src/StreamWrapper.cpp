@@ -8,10 +8,13 @@
 
 using namespace SuperStore;
 
-InStreamHolder& cin_holder()
+namespace SuperStore
 {
-  static InStreamHolder in(std::cin);
-  return in;
+  InStreamHolder& cin_holder()
+  {
+    static InStreamHolder in(std::cin);
+    return in;
+  }
 }
 
 InStreamHolder::InStreamHolder(std::istream &stream)

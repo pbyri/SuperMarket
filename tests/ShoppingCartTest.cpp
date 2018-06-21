@@ -38,9 +38,8 @@ SCENARIO("verify adding and removing purchase order to/from the cart",\
   GIVEN("A ShoppingCart")
   {
     std::istringstream ss;
-    ss.str("");
-    InStreamHolder ssh(ss);
-    auto cart = std::make_unique<ShoppingCart>(ssh);
+    InStreamHolder ish(ss);
+    auto cart = std::make_unique<ShoppingCart>(ish);
     REQUIRE(cart.get());
     REQUIRE(cart->getNumberOfPurchaseOrders() == 0);
     WHEN("A purchase order is added to the cart")
@@ -82,12 +81,14 @@ SCENARIO("verify adding and removing purchase order to/from the cart",\
       REQUIRE(cart->getNumberOfPurchaseOrders() == 0);
       auto order_num = order->getOrderNumber();
       cart->addToCart(std::move(order));
-      ss.str("1\n6\n");
+      ss.str("\n12254\n6\n0\n");
       cart->updateOrder();
       THEN("The updates reflect in the purchase order")
       {
+        REQUIRE(order_num == 12254);
         REQUIRE(cart->getPurchaseOrderById(order_num));
         REQUIRE(cart->getPurchaseOrderById(order_num)->getQuantity() == 6);
+
       }
     }
   }
