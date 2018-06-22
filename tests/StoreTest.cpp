@@ -207,5 +207,18 @@ SCENARIO("validate operations on shopping cart","[Store]")
 	REQUIRE(store.getInventorySize() == inv_size - 1);
       }
     }
+    WHEN("return to main menu is selected on serviceCustomer Menu")
+    {
+      auto cart_size = store.getShoppingCartSize();
+      auto inv_size = store.getInventorySize();
+      ss.str("0\n");
+      store.serviceCustomer();
+      THEN("cart and inventory size remain same")
+      {
+        REQUIRE(store.getShoppingCartSize() == cart_size);
+	REQUIRE(store.getInventorySize() == inv_size);
+      }
+      
+    }
   }
 }
