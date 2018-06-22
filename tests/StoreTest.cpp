@@ -190,7 +190,7 @@ SCENARIO("validate operations on shopping cart","[Store]")
       THEN("inventory size goes up by 1")
       {
         REQUIRE(store.getShoppingCartSize() == cart_size);
-	REQUIRE(store.getInventorySize() == inv_size + 1);
+	      REQUIRE(store.getInventorySize() == inv_size + 1);
       }
     }
     WHEN("deleteProduct is called on existing product")
@@ -204,7 +204,7 @@ SCENARIO("validate operations on shopping cart","[Store]")
       THEN("inventory size down by 1")
       {
         REQUIRE(store.getShoppingCartSize() == cart_size);
-	REQUIRE(store.getInventorySize() == inv_size - 1);
+	      REQUIRE(store.getInventorySize() == inv_size - 1);
       }
     }
     WHEN("return to main menu is selected on serviceCustomer Menu")
@@ -216,9 +216,111 @@ SCENARIO("validate operations on shopping cart","[Store]")
       THEN("cart and inventory size remain same")
       {
         REQUIRE(store.getShoppingCartSize() == cart_size);
-	REQUIRE(store.getInventorySize() == inv_size);
+	      REQUIRE(store.getInventorySize() == inv_size);
       }
-      
+
+    }
+    WHEN("purchaseProduct is successful on serviceCustomer Menu")
+    {
+      auto cart_size = store.getShoppingCartSize();
+      auto inv_size = store.getInventorySize();
+      ss.str("1\n20\n4\n0\n0\n");
+      store.serviceCustomer();
+      THEN("cart size is up by 1 and inventory size remain same")
+      {
+        REQUIRE(store.getShoppingCartSize() == cart_size + 1);
+        REQUIRE(store.getInventorySize() == inv_size);
+      }
+
+    }
+    WHEN("Edit Shopping Cart and delete order on serviceCustomer Menu")
+    {
+      auto cart_size = store.getShoppingCartSize();
+      auto inv_size = store.getInventorySize();
+      ss.str("2\n1\n1\n0\n0\n");
+      store.serviceCustomer();
+      THEN("cart size is down by 1 and inventory size remain same")
+      {
+        REQUIRE(store.getShoppingCartSize() == cart_size - 1);
+        REQUIRE(store.getInventorySize() == inv_size);
+      }
+
+    }
+    WHEN("Edit Shopping Cart and update order on serviceCustomer Menu")
+    {
+      auto cart_size = store.getShoppingCartSize();
+      auto inv_size = store.getInventorySize();
+      ss.str("2\n2\n1\n8\n0\n0\n0\n");
+      store.serviceCustomer();
+      THEN("cart size and inventory size remain same")
+      {
+        REQUIRE(store.getShoppingCartSize() == cart_size);
+        REQUIRE(store.getInventorySize() == inv_size);
+      }
+    }
+    WHEN("RETURN_TO_MAIN_MENU selected on serviceStoreAdmin Menu")
+    {
+      auto inv_size = store.getInventorySize();
+      ss.str("0\n");
+      store.serviceStoreAdmin();
+      THEN("cart size and inventory size remain same")
+      {
+        REQUIRE(store.getInventorySize() == inv_size);
+      }
+    }
+    WHEN("addNewProduct successful on serviceStoreAdmin Menu")
+    {
+      auto inv_size = store.getInventorySize();
+      ss.str("0\n");
+      store.serviceStoreAdmin();
+      THEN("inventory size remain same")
+      {
+        REQUIRE(store.getInventorySize() == inv_size);
+      }
+    }
+    WHEN("deleteProduct successful on serviceStoreAdmin Menu")
+    {
+      auto inv_size = store.getInventorySize();
+      ss.str("2\n20\n0\n0\n");
+      store.serviceStoreAdmin();
+      THEN("inventory size decreases by 1")
+      {
+        REQUIRE(store.getInventorySize() == inv_size - 1);
+      }
+    }
+    WHEN("viewInventory on serviceStoreAdmin Menu")
+    {
+      auto inv_size = store.getInventorySize();
+      ss.str("2\n0\n0\n");
+      store.serviceStoreAdmin();
+      THEN("inventory size remains same")
+      {
+        REQUIRE(store.getInventorySize() == inv_size);
+      }
+    }
+    WHEN("0 is entered on MainMenu")
+    {
+      ss.str("0\n");
+      store.launch();
+      THEN("Application exits")
+      {
+      }
+    }
+    WHEN("BuyProducts/Customer option is selected on MainMenu")
+    {
+      ss.str("1\n0\n0\n");
+      store.launch();
+      THEN("customer menu is launched")
+      {
+      }
+    }
+    WHEN("StoreAdmin option is selected on MainMenu")
+    {
+      ss.str("2\n0\n0\n");
+      store.launch();
+      THEN("Store Admin menu is launched")
+      {
+      }
     }
   }
 }

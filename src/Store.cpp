@@ -265,22 +265,22 @@ void Store::serviceStoreAdmin()
     {
       case StoreAdminChoice::RETURN_TO_MAIN_MENU:
       {
-	return;
+        return;
       }
       case StoreAdminChoice::ADD_NEW_PRODUCT:
       {
-	this->addNewProduct();
-	break;
+      	this->addNewProduct();
+      	break;
       }
       case StoreAdminChoice::DELETE_PRODUCT:
       {
-	this->deleteProduct();
-	break;
+      	this->deleteProduct();
+      	break;
       }
       case StoreAdminChoice::VIEW_INVENTORY:
       {
-	this->displayInventory();
-	break;
+      	this->displayInventory();
+      	break;
       }
     } // switch(choice)
   }while(choice);
@@ -304,14 +304,18 @@ void Store::launch()
     std::cout<<"You entered:"<<choice<<"\n";
     switch(MainMenuChoice(choice))
     {
-    case MainMenuChoice::CUSTOMER:
-      this->serviceCustomer();
-      break;
-    case MainMenuChoice::STORE_ADMIN:
-      this->serviceStoreAdmin();
-      break;
-    default:
-      break;
+      case MainMenuChoice::CUSTOMER:
+      {
+        this->serviceCustomer();
+        break;
+      }
+      case MainMenuChoice::STORE_ADMIN:
+      {
+        this->serviceStoreAdmin();
+        break;
+      }
+      default:
+        break;
     }
   }while(choice);
 }
