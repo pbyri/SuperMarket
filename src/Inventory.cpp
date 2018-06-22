@@ -3,7 +3,7 @@
 *   @author Pavan Kumar Byri
 *   @date 06-12-2018
 *
-*   This file contains the implementation details of Inventory class 
+*   This file contains the implementation details of Inventory class
 *
 */
 #include "Inventory.h"
@@ -70,9 +70,9 @@ bool Inventory::hasProductById(uint16_t id) const
 
 // if the inventory has a product with the given Id, return a pointer to the
 // Product object. Otherwise, return nullptr
-std::shared_ptr<Product> Inventory::getProductById(uint16_t id) 
+std::shared_ptr<Product> Inventory::getProductById(uint16_t id)
 {
- assert(this->hasProductById(id));
+ //assert(this->hasProductById(id));
 
  if(this->hasProductById(id))
  {

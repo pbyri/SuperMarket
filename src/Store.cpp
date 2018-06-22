@@ -95,13 +95,12 @@ void Store::displayCustomerMenu() const
   "3) Checkout and Pay\nPlease Enter your choice : ";
 }
 
-std::unique_ptr<PurchaseOrder> Store::getPurchaseOrderFromStream(
-                                      std::istream &stream)
+std::unique_ptr<PurchaseOrder> Store::getPurchaseOrderFromStream()
 {
   do
   {
     std::cout << "enter product id:";
-    auto product_id = getUint16FromStream(stream);
+    auto product_id = getUint16FromStream(getInputStream());
     if(!product_id || !m_pInventory->hasProductById(product_id))
     {
       break;
@@ -110,7 +109,7 @@ std::unique_ptr<PurchaseOrder> Store::getPurchaseOrderFromStream(
     do
     {
       std::cout << "enter quantity : ";
-      quantity = getUint16FromStream(stream);
+      quantity = getUint16FromStream(getInputStream());
     }while(!quantity);
     auto sp = m_pInventory->getProductById(product_id);
     if(sp)
@@ -128,7 +127,7 @@ void Store::purchaseProduct()
   m_pInventory->displayCatalog();
   do
   {
-    auto order = this->getPurchaseOrderFromStream(getInputStream());
+    auto order = this->getPurchaseOrderFromStream();
     if(!order)
     {
       break;
@@ -316,3 +315,7 @@ void Store::launch()
   }while(choice);
 }
 
+uint16_t Store::getShoppingCartSize() const
+{
+  return m_cart->getNumberOfPurchaseOrders();
+}

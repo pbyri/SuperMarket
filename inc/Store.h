@@ -93,7 +93,7 @@ namespace SuperStore
   *   @return bool
   *
   *   This method takes a 16 bit identifier as input and tries to
-  *   remove that product from the store's inventory. if product 
+  *   remove that product from the store's inventory. if product
   *   cannot be found. it returns false. If successfully removed, it returns
   *   true
   *
@@ -153,17 +153,6 @@ namespace SuperStore
   *
   */
   void serviceStoreAdmin();
-  /**Destructor
-  */
-  ~Store();
-  private:
-  /** @brief This is the catalog that lists the whole inventory of products 
-  *   available in this market
-  */
-  std::unique_ptr<Inventory> m_pInventory;
-  std::string m_name; /*!< Name of the store */
-  static uint16_t order_id; /*!< a hack to maintain unique order_id */
-  std::unique_ptr<ShoppingCart> m_cart; /*!< Shopping Cart */
 
   /** @brief This is a helper method to create a new product and add it to inventory
   *   @return void
@@ -182,7 +171,7 @@ namespace SuperStore
   *   the inputs provided. If the PurchaseOrder could not be created, it returns
   *   an empty unique_ptr
   */
-  std::unique_ptr<PurchaseOrder> getPurchaseOrderFromStream(std::istream &s);
+  std::unique_ptr<PurchaseOrder> getPurchaseOrderFromStream();
   /** @brief This function provides all the functionality required to purchase
    *  a product for the customer
    *  @return void
@@ -194,6 +183,18 @@ namespace SuperStore
   void deleteOrder();
   void updateOrder();
   void viewOrEditShoppingCart();
+  uint16_t getShoppingCartSize() const;
+  /**Destructor
+  */
+  ~Store();
+  private:
+  /** @brief This is the catalog that lists the whole inventory of products
+  *   available in this market
+  */
+  std::unique_ptr<Inventory> m_pInventory;
+  std::string m_name; /*!< Name of the store */
+  static uint16_t order_id; /*!< a hack to maintain unique order_id */
+  std::unique_ptr<ShoppingCart> m_cart; /*!< Shopping Cart */
   };
 }
 #endif

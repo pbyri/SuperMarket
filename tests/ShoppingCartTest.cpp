@@ -42,6 +42,7 @@ SCENARIO("verify adding and removing purchase order to/from the cart",\
     auto cart = std::make_unique<ShoppingCart>(ish);
     REQUIRE(cart.get());
     REQUIRE(cart->getNumberOfPurchaseOrders() == 0);
+    REQUIRE(!(cart->getPurchaseOrderById(1)));
     WHEN("A purchase order is added to the cart")
     {
       auto product = std::make_shared<Product>(10,"pen",3.33);
@@ -89,6 +90,34 @@ SCENARIO("verify adding and removing purchase order to/from the cart",\
         REQUIRE(cart->getPurchaseOrderById(order_num));
         REQUIRE(cart->getPurchaseOrderById(order_num)->getQuantity() == 6);
 
+      }
+    }
+    WHEN("product is removed from inventory")
+    {
+      auto product = std::make_shared<Product>(10,"pen",3.33);
+      auto order = std::make_unique<PurchaseOrder>(1,product,3);
+      REQUIRE(order->getCost() == 3*3.33);
+      product.reset();
+      THEN("The getCost returns 0")
+      {
+        REQUIRE(order->getCost() == 0);
+      }
+    }
+    WHEN("same purchase order_id is added twice to the cart")
+    {
+      auto product = std::make_shared<Product>(10,"pen",3.33);
+      auto order = std::make_unique<PurchaseOrder>(12254,
+              product,
+                                                  3);
+      auto order2 = std::make_unique<PurchaseOrder>(12254,
+              product,
+                                                  3);
+      REQUIRE(cart->getNumberOfPurchaseOrders() == 0);
+      cart->addToCart(std::move(order));
+      cart->addToCart(std::move(order2));
+      THEN("Only one purchase order gets added")
+      {
+        REQUIRE(cart->getNumberOfPurchaseOrders() == 1);
       }
     }
   }

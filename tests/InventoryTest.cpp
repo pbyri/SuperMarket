@@ -60,5 +60,10 @@ SCENARIO("validate Inventory Object", "[Inventory]")
         REQUIRE(ptr == shared.get());
       }
     }
+    WHEN("getProductById on non existing product")
+    {
+      auto shared = catalog.getProductById(1);
+      REQUIRE(!shared);
+    }
   }
 }
