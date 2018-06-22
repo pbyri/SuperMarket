@@ -116,5 +116,96 @@ SCENARIO("Validate addition and removal of Product from Store","[Store]")
         REQUIRE(store.getShoppingCartSize() == 0);
       }
     }
+    WHEN("update order is called on valid order_id")
+    {
+      store.addProductToInventory(std::make_unique<Product>(20,
+                   "Paste",
+                   10.76));
+      ss.str("20\n3\n0\n");
+      REQUIRE(store.getShoppingCartSize() == 0);
+      store.purchaseProduct();
+      REQUIRE(store.getShoppingCartSize() == 1);
+      ss.str("1\n7\n0\n");
+      store.updateOrder();
+      THEN("Shopping Cart size does not change")
+      {
+        REQUIRE(store.getShoppingCartSize() == 1);
+      }
+    }
  }
+}
+
+SCENARIO("validate operations on shopping cart","[Store]")
+{
+  GIVEN("A store with a shopping cart containing 2 orders")
+  {
+    std::istringstream ss;
+    InStreamHolder ish(ss);
+    Store store("Joes",ish);
+    store.addProductToInventory(std::make_unique<Product>(20,
+		 "Paste",
+		 10.76));
+    store.addProductToInventory(std::make_unique<Product>(21,
+		 "book",
+		 14.76));
+    REQUIRE(store.getShoppingCartSize() == 0);
+    ss.str("20\n4\n21\n6\n0\n");
+    store.purchaseProduct();
+    REQUIRE(store.getShoppingCartSize() == 2);
+    WHEN("return to main menu is selected on view/edit cart menu")
+    {
+      ss.str("0\n");
+      store.viewOrEditShoppingCart();
+      THEN("shopping cart size does not change")
+      {
+        REQUIRE(store.getShoppingCartSize() == 2);
+      }
+    }
+    WHEN("update order is selected on existing order")
+    {
+      ss.str("2\n1\n2\n0\n0\n");
+      store.viewOrEditShoppingCart();
+      THEN("shopping cart size does not change")
+      {
+        REQUIRE(store.getShoppingCartSize() == 2);
+      }
+    }
+    WHEN("delete order is selected on existing order")
+    {
+      ss.str("1\n2\n0\n0\n");
+      store.viewOrEditShoppingCart();
+      THEN("Shopping Cart size reduces by 1")
+      {
+        REQUIRE(store.getShoppingCartSize() == 1);
+      }
+    }
+    WHEN("addNewProduct is called")
+    {
+      auto cart_size = store.getShoppingCartSize();
+      auto inv_size = store.getInventorySize();
+      REQUIRE(cart_size == 2);
+      REQUIRE(inv_size == 2);
+      ss.str("30\ncap\n3.55\n0\n");
+      store.addNewProduct();
+      THEN("inventory size goes up by 1")
+      {
+        REQUIRE(store.getShoppingCartSize() == cart_size);
+	REQUIRE(store.getInventorySize() == inv_size + 1);
+      }
+    }
+    WHEN("deleteProduct is called on existing product")
+    {
+      auto cart_size = store.getShoppingCartSize();
+      auto inv_size = store.getInventorySize();
+      REQUIRE(cart_size == 2);
+      REQUIRE(inv_size == 2);
+      ss.str("20\n");
+      store.deleteProduct();
+      THEN("inventory size down by 1")
+      {
+        REQUIRE(store.getShoppingCartSize() == cart_size);
+	REQUIRE(store.getInventorySize() == inv_size - 1);
+      }
+    }
+  }
 }
