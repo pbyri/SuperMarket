@@ -111,7 +111,7 @@ SCENARIO("Validate addition and removal of Product from Store","[Store]")
       REQUIRE(store.getShoppingCartSize() == 1);
       ss.str("1\n");
       store.deleteOrder();
-      THEN("Inventory size goes down by 1")
+      THEN("Shopping Cart size goes down by 1")
       {
         REQUIRE(store.getShoppingCartSize() == 0);
       }

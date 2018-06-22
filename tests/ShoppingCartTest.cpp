@@ -66,6 +66,7 @@ SCENARIO("verify adding and removing purchase order to/from the cart",\
       REQUIRE(cart->getNumberOfPurchaseOrders() == 0);
       auto order_num = order->getOrderNumber();
       cart->addToCart(std::move(order));
+      REQUIRE(cart->getNumberOfPurchaseOrders() == 1);
       cart->removeFromCart(order_num);
       THEN("The size of the cart goes down by 1")
       {

@@ -21,6 +21,7 @@ Store::Store(const std::string &name
 {
   m_pInventory = std::make_unique<Inventory>("local");
   m_cart = std::make_unique<ShoppingCart>(stream);
+  this->order_id = 0;
 }
 
 Store::~Store()
