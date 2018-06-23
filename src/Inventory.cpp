@@ -25,11 +25,12 @@ bool Inventory::addProduct(std::unique_ptr<Product> product)
   {
     return false;
   }
+  //store the Product in catalog with Product Id as the key for lookup
   m_catalog[product->getID()] = std::move(product);
   return true;
 }
 
-// If the inventory has a product with the give id, remove it from the catalog
+// If the inventory has a product with the given id, remove it from the catalog
 // and return
 void Inventory::removeProduct(uint16_t product_id)
 {

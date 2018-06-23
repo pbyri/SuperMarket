@@ -1,6 +1,6 @@
 /** @file ShoppingCart.cpp
 *   @brief This file provides implementation for PurchaseOrder and
-*   Shoppingcart classes 
+*   Shoppingcart classes
 *   @author Pavan Kumar Byri
 *   @date 06-12-2018
 */
@@ -27,7 +27,7 @@ PurchaseOrder::~PurchaseOrder()
 }
 
 /**
-* cost of the order is calculated as 
+* cost of the order is calculated as
 * cost = price of the product * quantity
 */
 double PurchaseOrder::getCost() const
@@ -62,6 +62,7 @@ uint16_t PurchaseOrder::getQuantity() const
 
 void PurchaseOrder::updateQuantity(uint16_t quantity)
 {
+  //do not enter 0 as quantity
   assert(quantity);
   m_quantity = quantity;
 }
@@ -80,9 +81,9 @@ void ShoppingCart::addToCart(std::unique_ptr<PurchaseOrder> order)
   // try to find a PurchaseOrder with same order
   auto it = std::find_if(m_orders.begin(),
                          m_orders.end(),
-                         [&order](auto &order_) { 
-			 return order->getOrderNumber() == 
-			 order_->getOrderNumber(); 
+                         [&order](auto &order_) {
+			 return order->getOrderNumber() ==
+			 order_->getOrderNumber();
 			 }
 			);
   // if not found, then add the purchase order to the vector
@@ -99,7 +100,9 @@ void ShoppingCart::updateOrder()
   do
   {
     std::cout << "Please enter the order id you want to update : ";
+    // read the order_id from the user
     order_id = getUint16FromStream(getInputStream());
+    // try to locate it in the shopping cart
     auto iter = std::find_if(m_orders.begin(),
                              m_orders.end(),
                              [order_id](auto &order_) {
@@ -108,12 +111,14 @@ void ShoppingCart::updateOrder()
                             );
    if(iter != m_orders.end())
    {
+    //if it found, try to get the new quantity from user
      uint16_t quantity = 0;
      do
      {
        std::cout << "Enter new quantity : ";
        quantity = getUint16FromStream(getInputStream());
      }while(!quantity);
+     // update the quantity of the purchase order to new value
      (*iter)->updateQuantity(quantity);
    }
   }while(order_id);
@@ -124,8 +129,8 @@ void ShoppingCart::removeFromCart(uint16_t order_id)
   // Erase all PurchaseOrders with order_id
   m_orders.erase(std::remove_if(m_orders.begin(),
                                m_orders.end(),
-                               [&order_id](auto &order) { 
-			       return order->getOrderNumber() == order_id; 
+                               [&order_id](auto &order) {
+			       return order->getOrderNumber() == order_id;
 			       }
                                ),
                 m_orders.end()
@@ -143,27 +148,30 @@ void ShoppingCart::display() const
   std::cout << "====================================================\n";
   std::cout << "Order ID" << "  " << "Description" << " " <<
   "Quantity" << " " << "Cost" << "\n";
-  std::cout << "====================================================" << 
+  std::cout << "====================================================" <<
   std::endl;
+  // iterate through each purchase order and display it
   std::for_each(m_orders.begin()
                , m_orders.end()
-               ,[&total_cost](auto &order) { 
+               ,[&total_cost](auto &order) {
                              order->display();
                              total_cost += order->getCost();
                              }
-               ); 
+               );
   std::cout << "Total Cost : " << total_cost << std::endl;
 }
 
 
 const PurchaseOrder* ShoppingCart::getPurchaseOrderById(uint16_t Id) const
 {
+  // try to locate the purchase order in the cart
   auto iter = std::find_if(m_orders.begin(),
                            m_orders.end(),
                            [Id](auto &order_) {
                            return order_->getOrderNumber() == Id;
                            }
                           );
+  // if not found, locate nullptr
   if(iter == m_orders.end())
   {
     return nullptr;

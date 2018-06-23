@@ -23,7 +23,7 @@ namespace SuperStore
   class Product
   {
   public:
-    /** @brief This is an interactive static factory method that helps create 
+    /** @brief This is an interactive static factory method that helps create
     *   a new Product
     *   @param[in] inStream An input stream to get product details from user
     *   @return unique_ptr<Product>
@@ -41,21 +41,18 @@ namespace SuperStore
     *
     *   This method returns a unique 16 bit identifier that represents this
     *   product.
-    *
     */
     inline uint16_t getID() const;
     /** @brief get a description of the product
     *   @return std::string
     *
     * This method returns a brief description or title for the prouct
-    *
     */
     inline std::string getDescription() const;
     /** @brief get the price of the product
     *   @return double
     *
-    * This methid returns the price for which a product is available for purchase
-    *
+    * This method returns the price for which a product is available for purchase
     */
     inline double getPrice() const;
     /** @brief This function prints a product in human readable form
@@ -70,7 +67,7 @@ namespace SuperStore
     std::string m_description; /*!< A brief title for  product */
     double m_price; /*!< A price for which the product is available
 			 for purchase */
-  
+
     /** @brief A helper function to safely read product Id from  a stream
     *   @param[in] inStream An input stream to read data from
     *   @return uint16_t

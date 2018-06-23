@@ -47,6 +47,7 @@ bool Store::addProductToInventory(std::unique_ptr<Product> product)
     std::cout<<"ERROR!! Please choose a unique ID for every product\n";
     return false;
   }
+  // add the product to the inventory
   return m_pInventory->addProduct(std::move(product));
 }
 
@@ -101,7 +102,10 @@ std::unique_ptr<PurchaseOrder> Store::getPurchaseOrderFromStream()
   do
   {
     std::cout << "enter product id:";
+    // try to read product id from the user
     auto product_id = getUint16FromStream(getInputStream());
+    // if the user enters 0 or product doesnt exist in inventory
+    // they need to retry
     if(!product_id || !m_pInventory->hasProductById(product_id))
     {
       break;
@@ -111,7 +115,8 @@ std::unique_ptr<PurchaseOrder> Store::getPurchaseOrderFromStream()
     {
       std::cout << "enter quantity : ";
       quantity = getUint16FromStream(getInputStream());
-    }while(!quantity);
+    }while(!quantity); // only accept a non zero quantity
+    // Ensure the product is still present in the Inventory
     auto sp = m_pInventory->getProductById(product_id);
     if(sp)
     {
@@ -128,11 +133,15 @@ void Store::purchaseProduct()
   m_pInventory->displayCatalog();
   do
   {
+    // get all required inputs from the user and create
+    // an order
     auto order = this->getPurchaseOrderFromStream();
     if(!order)
     {
+      // if not successful, user needs to retry
       break;
     }
+    // if order is successfully created, place it in the cart
     m_cart->addToCart(std::move(order));
   }while(true);
 }

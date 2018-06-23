@@ -3,7 +3,7 @@
 *   @author Pavan Kumar Byri
 *   @date 06-13-2018
 *
-*   This file provides implementation to Product class 
+*   This file provides implementation to Product class
 *
 */
 
@@ -60,12 +60,14 @@ double Product::getProductPriceFromStream(std::istream &stream)
 }
 std::unique_ptr<Product> Product::CreateNewProductFromStream(std::istream &inStream)
 {
+  // read product Id, description and price for creating a product
   auto Id = Product::getProductIdFromStream(inStream);
   auto name = Product::getProductDescriptionFromStream(inStream);
   auto price = Product::getProductPriceFromStream(inStream);
+  // create a product object using inputs provided and return it
   return std::make_unique<Product>(Id,
                                    name,
-                                   price); 
+                                   price);
 }
 
 void Product::display() const
