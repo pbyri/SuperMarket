@@ -150,6 +150,7 @@ void Store::deleteOrder()
 {
   uint16_t order_id;
   std::cout << "Please Enter the order id to be deleted : ";
+  // get the order_id from the user and try to remove it from the cart
   order_id = getUint16FromStream(getInputStream());
   m_cart->removeFromCart(order_id);
 }
@@ -163,6 +164,7 @@ void Store::viewOrEditShoppingCart()
   uint16_t choice;
   do
   {
+    // display the available choices to edit the cart
     m_cart->display();
     std::cout << "Please select a choice from below :\n";
     std::cout << "0) Done\n1)Delete an Order\n2)Update an order\n";
@@ -171,16 +173,16 @@ void Store::viewOrEditShoppingCart()
     switch(EditCartChoice(choice))
     {
       case EditCartChoice::DONE :
-      {
+      { // go back to previous menu
         return;
       }
       case EditCartChoice::DELETE_ORDER:
-      {
+      { // go to the interactive screen for deleting an order
         this->deleteOrder();
         break;
       }
       case EditCartChoice::UPDATE_ORDER:
-      {
+      { // go to the interactive screen for updating an order
         this->updateOrder();
         break;
       }
@@ -195,26 +197,27 @@ void Store::serviceCustomer()
   int choice;
   do
   {
+    // show the customer menu choices and read the choice from user
     this->displayCustomerMenu();
     choice = getIntFromStream(getInputStream());
     switch(CustomerMenuChoice(choice))
     {
       case CustomerMenuChoice::RETURN_TO_MAIN_MENU:
-      {
+      { // go back to previous menu
         return;
       }
       case CustomerMenuChoice::PURCHASE_PRODUCT:
-      {
+      { // go to the interactive screen for purchasing a product
         this->purchaseProduct();
         break;
       }
       case CustomerMenuChoice::EDIT_SHOPPING_CART:
-      {
+      { // go to the interactive screen to view/edit the shopping cart
         this->viewOrEditShoppingCart();
         break;
       }
       case CustomerMenuChoice::CHECKOUT_AND_PAY:
-      {
+      { // TODO: implement
         break;
       }
       default:
@@ -227,15 +230,15 @@ void Store::addNewProduct()
 {
   bool bError = false;
   do
-  {
+  { // call helper function to create a product based on user input
     auto product = Product::CreateNewProductFromStream(getInputStream());
     if(!product)
-    {
+    { // product could not be created. Retry !
       bError = true;
       break;
     }
     if(!this->addProductToInventory(std::move(product)))
-    {
+    { // product could not be added to inventory. retry
       bError = true;
       break;
     }
@@ -252,6 +255,8 @@ void Store::addNewProduct()
 
 void Store::deleteProduct()
 {
+  // get the product Id to be deleted from inventory and try to remove
+  // it from the inventory
   auto Id = getUint16FromStream(getInputStream());
   if(this->removeProductFromInventory(Id))
   {
@@ -268,26 +273,27 @@ void Store::serviceStoreAdmin()
   int choice;
   do
   {
+    // show the choices to store admin and read the choice from the user
     this->displayStoreAdminMenu();
     choice = getIntFromStream(getInputStream());
     switch(StoreAdminChoice(choice))
     {
       case StoreAdminChoice::RETURN_TO_MAIN_MENU:
-      {
+      { // go back to previous menu
         return;
       }
       case StoreAdminChoice::ADD_NEW_PRODUCT:
-      {
+      { // go to the interactive screen for adding a new product
       	this->addNewProduct();
       	break;
       }
       case StoreAdminChoice::DELETE_PRODUCT:
-      {
+      { // go to the interactive menu to delete a product
       	this->deleteProduct();
       	break;
       }
       case StoreAdminChoice::VIEW_INVENTORY:
-      {
+      { // display the inventory on the terminal
       	this->displayInventory();
       	break;
       }
@@ -308,18 +314,19 @@ void Store::launch()
   // Stay in the Main Menu until the user chooses to exit the application
   do
   {
+    // display the main menu to the user and get the user type
     this->displayMainMenu();
     choice = getIntFromStream(getInputStream());
     std::cout<<"You entered:"<<choice<<"\n";
     switch(MainMenuChoice(choice))
     {
       case MainMenuChoice::CUSTOMER:
-      {
+      { // The user is a customer. go to customer menu
         this->serviceCustomer();
         break;
       }
       case MainMenuChoice::STORE_ADMIN:
-      {
+      { // The user is a store admin. go to store admin menu
         this->serviceStoreAdmin();
         break;
       }
