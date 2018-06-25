@@ -45,29 +45,27 @@ namespace SuperStore
     *   @return double
     *
     *   This method returns the cost of this order as (quantity * price)
-    *
     */
     double getCost() const;
     /** @brief return the order number for this PurchaseOrder
     *   @return uint16_t
     *
     *   This method returns the unique order number for this PurchaseOrder
-    *
     */
     uint16_t getOrderNumber() const;
-    /** @brief This method displays a PurchaseOrder in human readable form
-    *   @return void
-    */
     /** @brief returns the quantity of this purchase order
     *   @return uint16_t
     */
     uint16_t getQuantity() const;
+    /** @brief This method displays a PurchaseOrder in human readable form
+    *   @return void
+    */
     void display() const;
     /** Destructor
     */
     ~PurchaseOrder();
   private:
-    std::weak_ptr<Product> m_pProduct; /*!< Product being purchased */ 
+    std::weak_ptr<Product> m_pProduct; /*!< Product being purchased */
     uint16_t m_quantity; /*!< number of instances of Product purchased */
     uint16_t m_orderNumber; /*!< unique number for the purchase order */
 
@@ -80,18 +78,20 @@ namespace SuperStore
 
   /** @brief class ShoppingCart: prototypes the shopping cart
   *
-  *   This class represents the collection of products the customer is 
+  *   This class represents the collection of products the customer is
   *   interested in purchasing similar to a shopping bag.
   *
   */
   class ShoppingCart : public InStreamWrapper
   {
   public:
-    /** @brief Default Constructor
+    /** @brief Default Constructor with an input param
+    *   @param[in] stream The input stream from which the shopping cart
+    *   needs to read the data from
     */
     ShoppingCart(InStreamHolder &stream = cin_holder());
     /** @brief add a PuchaseOrder to the ShoppingCart
-    *   @param[in] order A unique_ptr of type PurchaseOrder that needs to be 
+    *   @param[in] order A unique_ptr of type PurchaseOrder that needs to be
     *   added to the cart.
     *   @return void
     */
@@ -99,7 +99,7 @@ namespace SuperStore
     /** @brief remove an existing PurchaseOrder from the ShoppingCart
     *   @param[in] order_id unique Id that identifies a PurchaseOrder
     *   @return void
-    *   This method is used to remove a specific PurchaseOrder from the 
+    *   This method is used to remove a specific PurchaseOrder from the
     *   ShoppingCart
     */
     void removeFromCart(uint16_t order_id);
@@ -107,22 +107,22 @@ namespace SuperStore
     *   @return uint16_t
     *
     *   This method returns the number of purchase orders in the cart
-    *
     */
     uint16_t getNumberOfPurchaseOrders() const;
-    /** @brief This method helps display the ShoppingCart in human readable form
-    *   @return void
-    */
-    void display() const;
-    /** @brief A helper method to update a purchase order in the cart
+    /** @brief A user interactive helper method to update a purchase order in
+    *   the cart
     *   @return void
     */
     void updateOrder();
-    /** @brief returns a pointer to the purchase order
+    /** @brief returns a pointer to the purchase order with Id
     *   @param[in] Id The id of the intended purchase order
     *   @return const PurchaseOrder*
     */
     const PurchaseOrder* getPurchaseOrderById(uint16_t Id) const;
+    /** @brief This method helps display the ShoppingCart in human readable form
+    *   @return void
+    */
+    void display() const;
     /** Destructor
     */
     ~ShoppingCart();

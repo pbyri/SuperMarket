@@ -2,7 +2,7 @@
 *   @brief Prototypes and Interfaces for Inventory class
 *   @author Pavan Kumar Byri
 *   @date 06-12-2018
-*   
+*
 *   This file Prototypes the Inventory class under the SuperStore namespace.
 *
 */
@@ -20,8 +20,8 @@ namespace SuperStore
   /* pre declarations */
   class Product;
   /** @brief class Inventory: prototypes a collection of Products
-   * 
-   *  This class contains the whole inventory of products being sold at 
+   *
+   *  This class contains the whole inventory of products being sold at
    *  the supermarket and also provides interfaces to modify the inventory
    *  and query the inventory.
    *
@@ -36,20 +36,20 @@ namespace SuperStore
        */
       Inventory(const std::string &name);
       /** @brief returns the name of the Inventory
-       *  @return std::string 
+       *  @return std::string
        */
       inline std::string getName() const;
-      /** @brief A helper function to add new Product to the Inventory 
+      /** @brief A helper function to add new Product to the Inventory
        *  @param[in] product A unique_ptr of Product type
        *  @return bool
-       *  This method takes a product object and adds it to the inventory of 
+       *  This method takes a product object and adds it to the inventory of
        *  the supermarket. If the product was successfully added to the inventory
        *  the function returns true. Otherwise it returns false.
        *
        */
       bool addProduct (std::unique_ptr<Product> product);
       /** @brief A helper function to remove an existing Product from Inventory
-       *  @param[in] product_id unique identifier of the Product that needs to 
+       *  @param[in] product_id unique identifier of the Product that needs to
        *  be removed from the Inventory
        *  @return void
        *
@@ -58,24 +58,22 @@ namespace SuperStore
       /** @brief Displays the entire Inventory on the screen
        *  @return void
        *
-       *  This method displays the inventory of the supermarket in a human 
+       *  This method displays the inventory of the supermarket in a human
        *  readable format
-       *
        */
       void displayCatalog()  const;
       /** @brief check if there is a product with specific id in the Inventory
       *   @param[in] id A unique id representing a Product
       *   @return bool
       *
-      *   This method takes a 16 bit id as a parameter and returns true if 
+      *   This method takes a 16 bit id as a parameter and returns true if
       *   there exists a product with that id in the inventory. Otherwise, it
       *   returns false
-      *
       */
       bool hasProductById(uint16_t id) const;
       /** @brief get a handle to a Product represented by a specific Id
       *   @param[in] id A unique Id presenting a Product in the inventory
-      *   @return const Product*
+      *   @return std::shared_ptr<Product>
       *
       *   This method takes a 16 bit id as input and returns a pointer to
       *   the Product represented by this id
@@ -99,7 +97,6 @@ namespace SuperStore
       *   @return uint16_t
       *
       *   Returns the number of distinct products available in the inventory
-      *
       */
       uint16_t getProductCount() const;
       /** Destructor

@@ -24,7 +24,6 @@ namespace SuperStore
   /** @brief class Store: prototypes the grocery store
   *
   * This class represents a super market store
-  *
   */
   class Store : public InStreamWrapper
   {
@@ -50,7 +49,7 @@ namespace SuperStore
   */
   enum class CustomerMenuChoice
   {
-    RETURN_TO_MAIN_MENU,   /*!< opotion to return to main menu */
+    RETURN_TO_MAIN_MENU,   /*!< option to return to main menu */
     PURCHASE_PRODUCT,      /*!< option to purchase a product */
     EDIT_SHOPPING_CART,    /*!< option to make changes to shopping cart */
     CHECKOUT_AND_PAY       /*!< option to checkout and pay dues to the store */
@@ -65,6 +64,8 @@ namespace SuperStore
   };
   /** @brief Constructor with std::string parameter
   *   @param[in] name A string that contains the name of the Store
+  *   @param[in] stream An input stream from which user will interact
+  *   with the Store class
   */
   Store(const std::string &name
        , InStreamHolder &stream = cin_holder());
@@ -72,7 +73,7 @@ namespace SuperStore
   *   @return std::string
   */
   std::string getName() const;
-  /** @brief returns the number of prodiucts in the Store
+  /** @brief returns the number of products in the Store
   *   @return uint16_t
   */
   uint16_t getInventorySize() const;
@@ -84,7 +85,6 @@ namespace SuperStore
   *   This method takes a product object as an input oarameter and
   *   adds that to the store's inventory. If successful, returns true. Otherwise
   *   it returns false.
-  *
   */
   bool addProductToInventory(std::unique_ptr<Product> product);
   /** @brief A helper function to remove a product from Store Inventory
@@ -96,7 +96,6 @@ namespace SuperStore
   *   remove that product from the store's inventory. if product
   *   cannot be found. it returns false. If successfully removed, it returns
   *   true
-  *
   */
   bool removeProductFromInventory(uint16_t id);
   /** @brief Displays the Main Menu or home page menu
@@ -104,7 +103,6 @@ namespace SuperStore
   *
   *   This method displays the main menu where the user can choose a sub-menu that
   *   they are interested in
-  *
   */
   void displayMainMenu() const;
   /** @brief Displays the menu for store administrator
@@ -112,7 +110,6 @@ namespace SuperStore
   *
   *   This method displays a menu for the store manager and facilitates making
   *   changes to the inventory
-  *
   */
   void displayStoreAdminMenu() const;
   /** @brief Displays the Menu for customer
@@ -120,7 +117,6 @@ namespace SuperStore
   *
   *   This method displays the menu appropriate for a customer shopping at the
   *   store
-  *
   */
   void displayCustomerMenu() const;
   /** @brief This method will handle core interaction functionality of the
@@ -129,31 +125,26 @@ namespace SuperStore
   *
   *   This method will launch the store application and takes to home screen and
   *   takes appropriate action based on user choice
-  *
   */
   void launch();
   /** @brief Displays the inventory of the store
   *   @return void
   *
   *   This method displays the entire inventory contained in the store
-  *
   */
   void displayInventory() const;
   /** @brief provide functionalities useful to customer of the store
   *   @return void
   *
   *   This method handles customer interaction functions
-  *
   */
   void serviceCustomer();
   /** @brief provide functionalities useful to admin of the store
   *   @return void
   *
   *   This method handles store admin interaction function
-  *
   */
   void serviceStoreAdmin();
-
   /** @brief This is a helper method to create a new product and add it to inventory
   *   @return void
   */
@@ -164,7 +155,6 @@ namespace SuperStore
   */
   void deleteProduct();
   /** @brief gets input from a stream for creating a purchase order
-  *   @param[in] s An input stream from which to read the data
   *   @return std::unique_ptr<PurchaseOrder>
   *
   *   This method gets input from the user and creates a PurchaseOrder based on
@@ -180,9 +170,20 @@ namespace SuperStore
   /** @brief This method displays the Shopping Cart and also helps make changes
   *   to the shopping cart
   */
-  void deleteOrder();
-  void updateOrder();
   void viewOrEditShoppingCart();
+  /** @brief A user interactive function to help delete an order from the
+  *   shopping cart
+  *   @return void
+  */
+  void deleteOrder();
+  /** @brief A user interactive function to help update an order in the
+  *   shopping cart
+  *   @return void
+  */
+  void updateOrder();
+  /** @brief return the number of purchase orders in the cart
+  *   @return uint16_t
+  */
   uint16_t getShoppingCartSize() const;
   /**Destructor
   */
@@ -194,7 +195,7 @@ namespace SuperStore
   std::unique_ptr<Inventory> m_pInventory;
   std::string m_name; /*!< Name of the store */
   static uint16_t order_id; /*!< a hack to maintain unique order_id */
-  std::unique_ptr<ShoppingCart> m_cart; /*!< Shopping Cart */
+  std::unique_ptr<ShoppingCart> m_cart; /*!< Shopping Cart object*/
   };
 }
 #endif
