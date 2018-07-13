@@ -130,6 +130,11 @@ std::unique_ptr<PurchaseOrder> Store::getPurchaseOrderFromStream()
 }
 void Store::purchaseProduct()
 {
+  if(0 == m_pInventory->getProductCount())
+  {
+    std::cout<<"Sorry, the inventory is empty.\n";
+    return;
+  }
   m_pInventory->displayCatalog();
   do
   {
